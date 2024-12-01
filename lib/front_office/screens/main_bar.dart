@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/screens/create_reservation/create_reservation_page_view.dart';
+import 'package:frontend/front_office/screens/home/fo_home.dart';
 import 'package:frontend/front_office/screens/home/widgets/current_status.dart';
 import 'package:frontend/front_office/widgets/guest_registration.dart';
 
 class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +60,9 @@ class MainBar extends StatelessWidget {
     return
       Scaffold(
         appBar: FOAppBar(),
-          body: GuestRegistrationWidget(onSubmit: (Map<String, String> p) {})
+          body: CurrentStatus()
       );
+
   }
 
 }

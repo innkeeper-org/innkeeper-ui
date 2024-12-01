@@ -50,7 +50,11 @@ class Room {
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
   Map<String, dynamic> toJson() => _$RoomToJson(this);
 
-
+  bool hasSearchText(String? text) {
+    if(text == null || text.isEmpty) return true;
+    return name.contains(text) ||
+        (roomBooking?.guest?.hasSearchText(text) == true);
+  }
   static Color getRoomStatusColor(RoomStatus roomStatus) {
     switch(roomStatus) {
       case RoomStatus.BOOKED:
