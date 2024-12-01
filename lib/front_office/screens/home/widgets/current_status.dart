@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:frontend/front_office/models/room.dart';
-import 'package:frontend/front_office/widgets/room_status_card.dart';
+import 'package:frontend/front_office/screens/home/widgets/room_list_filter.dart';
+import 'package:frontend/front_office/screens/home/widgets/room_status_card.dart';
 
 class CurrentStatus extends StatelessWidget {
   CurrentStatus({super.key}) {
@@ -23,13 +24,12 @@ class CurrentStatus extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Wrap(
               children: [
-                Card(
-                  color: theme.cardColor,
-                  elevation: 1,
-                  child: Container(
+               Container(
+                 width: MediaQuery.sizeOf(context).width,
                     padding: EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -38,7 +38,7 @@ class CurrentStatus extends StatelessWidget {
                         Text("Inventory",
                             style: theme.textTheme.headlineSmall),
                         Divider(),
-                        Text("<Add Filters here>"),
+                        RoomListFilter(),
                         Divider(),
                         Wrap(
                           children: roomList.map((room) {
@@ -48,7 +48,6 @@ class CurrentStatus extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
               ],
             )
           ],

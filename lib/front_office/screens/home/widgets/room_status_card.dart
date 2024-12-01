@@ -9,22 +9,6 @@ class RoomStatusCard extends StatelessWidget {
   final Room room;
 
   const RoomStatusCard({super.key, required this.room});
-  Color getCardColor() {
-    switch(room.status) {
-
-      case RoomStatus.BOOKED:
-        return Colors.blueGrey;
-      case RoomStatus.BLOCKED:
-        return Colors.black12;
-      case RoomStatus.CLEANING:
-        return Colors.yellowAccent;
-      case RoomStatus.CHECKED_IN:
-        return Colors.blue;
-      case RoomStatus.READY:
-      default:
-        return Colors.green;
-    }
-  }
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -33,7 +17,7 @@ class RoomStatusCard extends StatelessWidget {
         height: 200,
         padding: EdgeInsets.all(20),
         child: Card(
-          color: getCardColor(),
+          color: Room.getRoomStatusColor(room.status),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/fo_home.dart';
+import 'package:frontend/front_office/screens/home/fo_home.dart';
 import 'package:frontend/front_office/widgets/guest_registration.dart';
 
 void main() {

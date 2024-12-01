@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/room_booking.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,6 +15,8 @@ enum RoomStatus {
   CHECKED_IN,
   READY;
 }
+
+
 
 @JsonSerializable()
 class Room {
@@ -45,4 +49,21 @@ class Room {
 
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
   Map<String, dynamic> toJson() => _$RoomToJson(this);
+
+
+  static Color getRoomStatusColor(RoomStatus roomStatus) {
+    switch(roomStatus) {
+      case RoomStatus.BOOKED:
+        return Colors.blueGrey;
+      case RoomStatus.BLOCKED:
+        return Colors.black12;
+      case RoomStatus.CLEANING:
+        return Colors.yellowAccent;
+      case RoomStatus.CHECKED_IN:
+        return Colors.blue;
+      case RoomStatus.READY:
+      default:
+        return Colors.green;
+    }
+  }
 }
