@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/screens/create_reservation/create_reservation_page_view.dart';
-import 'package:frontend/front_office/screens/home/fo_home.dart';
 import 'package:frontend/front_office/screens/home/widgets/current_status.dart';
-import 'package:frontend/front_office/widgets/guest_registration.dart';
 
 class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
 
@@ -35,16 +31,7 @@ class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
 
-      actions: const [
-        Wrap(
-          children: [
-            Text("Property : "),
-            Text("Lemon Tree  ", style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),)
-          ],
-        )
-      ],
+
     );
   }
 
@@ -53,7 +40,7 @@ class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class MainBar extends StatelessWidget {
+class FrontOfficeHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
