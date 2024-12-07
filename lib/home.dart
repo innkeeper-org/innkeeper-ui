@@ -12,16 +12,14 @@ class _HomeState extends State<Home> {
   String selectedPage = '';
   String selectedProperty = 'Hotel Lemon Tree';
 
-  List<String> propertyList = ['Hotel Lemon Tree', 'Chilliz Restaurant'];
-
   Map<String, List<String>> options = {};
 
   _HomeState() {
     options = {
-      propertyList[0] : ['Front Office', 'Expenses', 'Accounts'],
-      propertyList[1] : ['Billing', 'Inventory']
+      "Hotel Lemon Tree" : ['Front Office', 'Expenses', 'Accounts'],
+      "Chilliz Restaurant" : ['Billing', 'Inventory']
     };
-    selectedProperty = propertyList[0];
+    selectedProperty = options.keys.first;
   }
 
 
@@ -60,44 +58,46 @@ class _HomeState extends State<Home> {
                   Text("For support kindly reach to 7017002865",
                   style: theme.textTheme.labelSmall,),
                   Divider(),
-                  // PopupMenuButton<String>(
-                  //   icon:Row(
-                  //     children: [
-                  //       Text(selectedProperty, style: theme.textTheme.bodySmall),
-                  //       SizedBox(width: 4),
-                  //       Icon(Icons.arrow_drop_down, color: theme.primaryColor)
-                  //     ],
-                  //   ),
-                  //
-                  //   onSelected: (value) => {setState(() {
-                  //     selectedProperty = value;
-                  //   })},
-                  //   itemBuilder: (BuildContext context) {
-                  //     return propertyList.map((String choice) {
-                  //       return PopupMenuItem<String>(
-                  //         value: choice,
-                  //         child: Text(choice, style: theme.textTheme.bodySmall),
-                  //       );
-                  //     }).toList();
-                  //   },
-                  // ),
+                  PopupMenuButton<String>(
+                    icon:Row(
+                      children: [
+                        Text(selectedProperty, style: theme.textTheme.bodySmall),
+                        SizedBox(width: 4),
+                        Icon(Icons.arrow_drop_down, color: theme.primaryColor)
+                      ],
+                    ),
+
+                    onSelected: (value) => {setState(() {
+                      selectedProperty = value;
+                    })},
+                    itemBuilder: (BuildContext context) {
+                      return options.keys.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice, style: theme.textTheme.bodySmall),
+                        );
+                      }).toList();
+                    },
+                  ),
                 ],
               ),
             ),
-            // ListView.builder(
-            //     itemCount: propertyList.length,
-            //     itemBuilder: (context, index) {
-            //         return  ListTile(
-            //           leading: const Icon(Icons.work),
-            //           title:  Text(options[selectedProperty]![index], style: theme.textTheme.bodyMedium,),
-            //           onTap: () {
-            //             setState(() {
-            //               selectedPage = options[selectedProperty]![index];
-            //               Navigator.pop(context);
-            //             });
-            //           },
-            //         );}
-            // ),
+            ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: options.keys.length,
+                itemBuilder: (context, index) {
+                    return  ListTile(
+                      leading: const Icon(Icons.work),
+                      title:  Text(options[selectedProperty]![index], style: theme.textTheme.bodyMedium,),
+                      onTap: () {
+                        setState(() {
+                          selectedPage = options[selectedProperty]![index];
+                          Navigator.pop(context);
+                        });
+                      },
+                    );}
+            ),
           ],
         ),
       ),
