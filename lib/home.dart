@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/front_office/screens/create_reservation/main.dart';
 import 'package:frontend/front_office/screens/front_office_home.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -101,8 +102,8 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: Center(
-        child: FrontOfficeHome(),
+      body: const Center(
+        child: CreateReservationPageView(),
       ),
     );
   }

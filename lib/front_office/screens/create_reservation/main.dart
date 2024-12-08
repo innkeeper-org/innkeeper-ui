@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:frontend/front_office/widgets/guest_registration.dart';
+import 'package:frontend/front_office/screens/create_reservation/widgets/guest_information.dart';
 
 class CreateReservationPageView extends StatefulWidget {
+  const CreateReservationPageView({super.key});
+
   @override
-  State<StatefulWidget> createState() => _CreateReservationState();
+  State<CreateReservationPageView> createState() => _CreateReservationState();
 
 }
 
