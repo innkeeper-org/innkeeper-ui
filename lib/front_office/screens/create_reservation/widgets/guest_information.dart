@@ -7,7 +7,8 @@ import 'package:frontend/util/colors.dart';
 class GuestRegistrationWidget extends StatefulWidget {
   final Function(Map<String, String>) onSubmit;
 
-  const GuestRegistrationWidget({Key? key, required this.onSubmit}) : super(key: key);
+  const GuestRegistrationWidget({Key? key, required this.onSubmit})
+      : super(key: key);
 
   @override
   _GuestRegistrationFormState createState() => _GuestRegistrationFormState();
@@ -19,32 +20,54 @@ class GuestBasicDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    return
-      Card(
-          color: theme.cardColor,
-          elevation: 1,
-          child: Container(
-            width: 450,
-            padding: EdgeInsets.all(15),
-            child: Column(
+    return Card(
+        color: theme.cardColor,
+        elevation: 1,
+        child: Container(
+          width: 450,
+          padding: EdgeInsets.all(15),
+          child: Column(
               // mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Basic Details", style: theme.textTheme.bodyLarge),
-                  const Divider(thickness: 2),
-                  CustomFormTextField(name: "First Name", validators:  [FormBuilderValidators.required()]),
-                  CustomFormTextField(name: "Last Name", validators: [FormBuilderValidators.required()]),
-                  CustomFormTextField(name: "Phone", validators: [FormBuilderValidators.required(),
-                    FormBuilderValidators.phoneNumber()]),
-                  CustomFormTextField(name: "Email", validators: [FormBuilderValidators.required(),
-                    FormBuilderValidators.email()]),
-                  FormBuilderDateTimePicker(name: "DOB",
-                    decoration: const InputDecoration(labelText: "DOB"),
-                    inputType: InputType.date,
-                    initialEntryMode: DatePickerEntryMode.calendarOnly,)]
-            ),
-          ));
+              children: [
+                Text("Basic Details", style: theme.textTheme.bodyLarge),
+                const Divider(thickness: 2),
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomFormTextField(
+                            name: "First Name",
+                            validators: [FormBuilderValidators.required()])),
+                    Expanded(
+                        child: CustomFormTextField(
+                            name: "Last Name",
+                            validators: [FormBuilderValidators.required()])),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomFormTextField(name: "Phone", validators: [
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.phoneNumber()
+                      ]),
+                    ),
+                    Expanded(
+                      child: CustomFormTextField(name: "Email", validators: [
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.email()
+                      ]),
+                    ),
+                  ],
+                ),
+                FormBuilderDateTimePicker(
+                  name: "DOB",
+                  decoration: const InputDecoration(labelText: "DOB"),
+                  inputType: InputType.date,
+                  initialEntryMode: DatePickerEntryMode.calendarOnly,
+                )
+              ]),
+        ));
   }
-
 }
 
 // class GuestCompanyDetailsCard extends StatelessWidget {
@@ -91,14 +114,11 @@ class _GuestRegistrationFormState extends State<GuestRegistrationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  FormBuilder(
+    return FormBuilder(
         key: _formKey,
         child: const Wrap(
-          alignment: WrapAlignment.spaceBetween,
+            alignment: WrapAlignment.spaceBetween,
             runAlignment: WrapAlignment.spaceBetween,
-            children: [
-            GuestBasicDetailsCard()
-            ])
-    );
+            children: [GuestBasicDetailsCard()]));
   }
 }
