@@ -24,12 +24,12 @@ class GuestBasicDetailsCard extends StatelessWidget {
         color: theme.cardColor,
         elevation: 1,
         child: Container(
-          width: 450,
+          width: 800,
           padding: EdgeInsets.all(15),
           child: Column(
               // mainAxisSize: MainAxisSize.min,
               children: [
-                Text("Basic Details", style: theme.textTheme.bodyLarge),
+                Text("Guest Information", style: theme.textTheme.bodyLarge),
                 const Divider(thickness: 2),
                 Row(
                   children: [

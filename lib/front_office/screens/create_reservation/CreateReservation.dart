@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/guest_information.dart';
+import 'package:frontend/front_office/screens/create_reservation/widgets/GuestInformation.dart';
 
 class CreateReservationPageView extends StatefulWidget {
   const CreateReservationPageView({super.key});
 
   @override
   State<CreateReservationPageView> createState() => _CreateReservationState();
-
 }
 
 class _CreateReservationState extends State<CreateReservationPageView>
@@ -31,7 +30,6 @@ class _CreateReservationState extends State<CreateReservationPageView>
     _tabController.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -46,7 +44,8 @@ class _CreateReservationState extends State<CreateReservationPageView>
           onPageChanged: _handlePageViewChanged,
           children: <Widget>[
             Center(
-              child: GuestRegistrationWidget(onSubmit: (Map<String, String> mp){}),
+              child: GuestRegistrationWidget(
+                  onSubmit: (Map<String, String> mp) {}),
             ),
             Center(
               child: Text('Second Page', style: textTheme.titleLarge),
