@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/GuestInformation.dart';
+import 'package:frontend/front_office/screens/create_reservation/widgets/RoomInformation.dart';
 
 class CreateReservationPageView extends StatefulWidget {
   const CreateReservationPageView({super.key});
@@ -48,7 +48,7 @@ class _CreateReservationState extends State<CreateReservationPageView>
                   onSubmit: (Map<String, String> mp) {}),
             ),
             Center(
-              child: Text('Second Page', style: textTheme.titleLarge),
+              child: RoomInformationWidget(),
             ),
             Center(
               child: Text('Third Page', style: textTheme.titleLarge),
