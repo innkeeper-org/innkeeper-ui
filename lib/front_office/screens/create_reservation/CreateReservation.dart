@@ -37,24 +37,27 @@ class _CreateReservationState extends State<CreateReservationPageView>
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
-        PageView(
-          /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-          /// Use [Axis.vertical] to scroll vertically.
-          controller: _pageViewController,
-          onPageChanged: _handlePageViewChanged,
-          children: <Widget>[
-            Center(
-              child: GuestRegistrationWidget(
-                  onSubmit: (Map<String, String> mp) {}),
-            ),
-            Center(
-              child: RoomInformationWidget(),
-            ),
-            Center(
-              child: Text('Third Page', style: textTheme.titleLarge),
-            ),
-          ],
-        ),
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.width * 0.5,
+            child: PageView(
+              /// [PageView.scrollDirection] defaults to [Axis.horizontal].
+              /// Use [Axis.vertical] to scroll vertically.
+              controller: _pageViewController,
+              onPageChanged: _handlePageViewChanged,
+              children: <Widget>[
+                Center(
+                  child: GuestRegistrationWidget(
+                      onSubmit: (Map<String, String> mp) {}),
+                ),
+                Center(
+                  child: RoomInformationWidget(),
+                ),
+                Center(
+                  child: Text('Third Page', style: textTheme.titleLarge),
+                ),
+              ],
+            )),
         PageIndicator(
           tabController: _tabController,
           currentPageIndex: _currentPageIndex,

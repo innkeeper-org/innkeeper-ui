@@ -14,8 +14,25 @@ class GuestRegistrationWidget extends StatefulWidget {
   _GuestRegistrationFormState createState() => _GuestRegistrationFormState();
 }
 
+class _GuestRegistrationFormState extends State<GuestRegistrationWidget> {
+  final _formKey = GlobalKey<FormBuilderState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilder(
+        key: _formKey,
+        child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runAlignment: WrapAlignment.spaceBetween,
+            children: [GuestBasicDetailsCard(_formKey)]));
+  }
+}
+
 class GuestBasicDetailsCard extends StatelessWidget {
-  const GuestBasicDetailsCard({super.key});
+
+  final GlobalKey<FormBuilderState> _formKey;
+
+  const GuestBasicDetailsCard(this._formKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +52,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                   children: [
                     Expanded(
                         child: CustomFormTextField(
-                            name: "First Name",
-                            validators: [FormBuilderValidators.required()])),
-                    Expanded(
-                        child: CustomFormTextField(
-                            name: "Last Name",
+                            name: "Name",
                             validators: [FormBuilderValidators.required()])),
                   ],
                 ),
@@ -64,7 +77,13 @@ class GuestBasicDetailsCard extends StatelessWidget {
                   decoration: const InputDecoration(labelText: "DOB"),
                   inputType: InputType.date,
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
-                )
+                ),
+                MaterialButton(
+                    child: const Text("Save"),
+                    onPressed: (){
+                    _formKey.currentState?.validate();
+                    debugPrint(_formKey.currentState?.instantValue.toString());
+                })
               ]),
         ));
   }
@@ -107,18 +126,3 @@ class GuestBasicDetailsCard extends StatelessWidget {
 //   }
 //
 // }
-
-class _GuestRegistrationFormState extends State<GuestRegistrationWidget> {
-  final _formKey = GlobalKey<FormBuilderState>();
-  final _emailFieldKey = GlobalKey<FormBuilderFieldState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return FormBuilder(
-        key: _formKey,
-        child: const Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            runAlignment: WrapAlignment.spaceBetween,
-            children: [GuestBasicDetailsCard()]));
-  }
-}
