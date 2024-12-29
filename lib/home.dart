@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/screens/front_office_home.dart';
+import 'package:logging/logging.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -11,6 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String selectedPage = '';
   String selectedProperty = 'Hotel Lemon Tree';
+  Logger logger = Logger((Home).toString());
 
   Map<String, List<String>> options = {};
 
@@ -20,8 +22,18 @@ class _HomeState extends State<Home> {
       "Chilliz Restaurant" : ['Billing', 'Inventory']
     };
     selectedProperty = options.keys.first;
+    selectedPage = options[selectedProperty]![0];
   }
 
+  Widget _getSelectedPage() {
+    logger.info("$selectedProperty : $selectedPage");
+    switch(selectedPage) {
+      case 'Front Office':
+        return FrontOfficeHome();
+      default:
+        return Text("Not implemented");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +81,7 @@ class _HomeState extends State<Home> {
 
                     onSelected: (value) => {setState(() {
                       selectedProperty = value;
+                      selectedPage = options[selectedProperty]![0];
                     })},
                     itemBuilder: (BuildContext context) {
                       return options.keys.map((String choice) {
@@ -102,7 +115,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: Center(
-        child: FrontOfficeHome(),
+        child: _getSelectedPage()
       ),
     );
   }
