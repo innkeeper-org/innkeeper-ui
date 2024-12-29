@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/screens/home/widgets/calendar_view.dart';
+import 'package:frontend/front_office/screens/home/widgets/calendar_view_widget.dart';
 import 'package:frontend/front_office/screens/home/widgets/current_status.dart';
 import 'package:logging/logging.dart';
 
@@ -52,7 +52,7 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
   Widget _getBodyContent() {
       switch(selectedOption) {
         case "Calendar View":
-          return CalendarView();
+          return CalendarViewWidget();
         case "Current Status":
           return CurrentStatus();
         default:
@@ -73,7 +73,8 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
           }),
           body: Center(
             child: _getBodyContent(),
-          )
+          ),
+        floatingActionButton: FloatingActionButton(onPressed: (){}),
 
       );
   }

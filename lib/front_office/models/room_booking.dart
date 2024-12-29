@@ -28,8 +28,8 @@ class RoomBooking {
 });
 
   static RoomBooking generateRandomRoomBooking(Room room) {
-    DateTime checkIn = DateTime.now().add(Duration(days: Random().nextInt(100)));
-    DateTime checkOut = checkIn.add(Duration(days: Random().nextInt(10)));
+    DateTime checkIn = DateTime.now().add(Duration(days: Random().nextInt(15)));
+    DateTime checkOut = checkIn.add(Duration(days: Random().nextInt(2)));
     double priceWithoutTax = (1500.00 + Random().nextInt(1000));
     RoomBooking roomBooking = new RoomBooking(roomBookingId: Random().nextInt(1000).toString(), room: room,
         bookingCheckIn: checkIn, bookingCheckOut: checkOut,
