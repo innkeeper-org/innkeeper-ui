@@ -49,8 +49,8 @@ class _CurrentStatusState extends State<CurrentStatus> {
     return SingleChildScrollView(
         padding: EdgeInsets.all(10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.maxddas,
           children: [
             Wrap(
               children: [

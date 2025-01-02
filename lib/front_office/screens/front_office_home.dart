@@ -7,9 +7,10 @@ import 'package:logging/logging.dart';
 class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final List<String> options;
+  final String selectedOption;
   final Function onPressed;
 
-  FOAppBar({super.key, required this.options, required this.onPressed});
+  FOAppBar({super.key, required this.options, required this.selectedOption, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,8 @@ class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: options.map((option) =>
          TextButton(
            onPressed: () => {onPressed(option)},
-           child: Text(option),
+           child: Text(option,
+               style : option == selectedOption ? const TextStyle(fontWeight: FontWeight.bold) : null),
          ))
           .toList()
       ),
@@ -43,7 +45,7 @@ class FrontOfficeHome extends StatefulWidget {
 
 class _FrontOfficeHomeState extends State<FrontOfficeHome> {
   Logger logger = Logger((FrontOfficeHome).toString());
-  List<String> options = ["Calendar View", "Room Booking", "Current Status", "Pending Invoices"];
+  List<String> options = ["Calendar View", "Current Status", "Pending Invoices"];
   late String selectedOption;
 
   _FrontOfficeHomeState() {
@@ -56,8 +58,6 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
           return CalendarViewWidget();
         case "Current Status":
           return CurrentStatus();
-        case "Room Booking":
-          return RoomBookingDialog();
         default:
           return Text("Unimplemented error");
       }
@@ -68,7 +68,7 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
     ThemeData theme = Theme.of(context);
     return
       Scaffold(
-          appBar: FOAppBar(options : options, onPressed: (option) => {
+          appBar: FOAppBar(options : options, selectedOption:  selectedOption, onPressed: (option) => {
             setState(() {
               selectedOption = option;
             }),
