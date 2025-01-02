@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/screens/home/widgets/calendar_view_widget.dart';
 import 'package:frontend/front_office/screens/home/widgets/current_status.dart';
+import 'package:frontend/front_office/screens/room_booking/room_booking_dialog.dart';
 import 'package:logging/logging.dart';
 
 class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -42,11 +43,11 @@ class FrontOfficeHome extends StatefulWidget {
 
 class _FrontOfficeHomeState extends State<FrontOfficeHome> {
   Logger logger = Logger((FrontOfficeHome).toString());
-  List<String> options = ["Calendar View", "Current Status", "Pending Invoices"];
+  List<String> options = ["Calendar View", "Room Booking", "Current Status", "Pending Invoices"];
   late String selectedOption;
 
   _FrontOfficeHomeState() {
-    selectedOption = options[0];
+    selectedOption = options[1];
   }
 
   Widget _getBodyContent() {
@@ -55,6 +56,8 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
           return CalendarViewWidget();
         case "Current Status":
           return CurrentStatus();
+        case "Room Booking":
+          return RoomBookingDialog();
         default:
           return Text("Unimplemented error");
       }

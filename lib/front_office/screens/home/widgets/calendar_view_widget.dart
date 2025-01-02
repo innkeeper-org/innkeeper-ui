@@ -30,13 +30,20 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      body: SfCalendar(
-        view: CalendarView.month,
-        dataSource: EventDataSource(_getEventsFromRoomBookings(RoomBookingRepository.getRandomBookings())),
-          monthViewSettings: MonthViewSettings(
-              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment)
+      body:
+           SfCalendar(
+            view: CalendarView.week,
+            allowedViews:  CalendarView.values,
+            dataSource: EventDataSource(_getEventsFromRoomBookings(RoomBookingRepository.getRandomBookings())),
+            monthViewSettings: const MonthViewSettings(
+                appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+            appointmentDisplayCount: 3,
+            // showAgenda: true,
+            agendaViewHeight: 400
+            ),
+            onTap: calendarTapped,
+          ),
 
-      )
     );
     // TODO: implement build
     //   return Container(
@@ -83,12 +90,20 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
     //       },
     //   ));
   }
+
+  void calendarTapped(CalendarTapDetails tapDetails) {
+    // if(tapDetails.targetElement == CalendarElement.appointment ||
+    // tapDetails.targetElement == CalendarElement.calendarCell) {
+      logger.info("Event Tapped : " + tapDetails.appointments.toString());
+    // }
+
+  }
   _getEventsFromRoomBookings(List<RoomBooking> randomBookings) {
     List<Event> eventList = [];
     for(RoomBooking roomBooking in randomBookings) {
       final guest = roomBooking.guest;
       if(guest != null) {
-        eventList.add(Event(guest.name, roomBooking.bookingCheckIn, roomBooking.bookingCheckOut));
+        eventList.add(Event(guest.name, roomBooking.bookingCheckIn, roomBooking.bookingCheckOut, roomBooking.getRoomStatusColor()));
       }
     }
     return eventList;
@@ -99,7 +114,6 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
 class EventDataSource extends CalendarDataSource {
   Logger logger = Logger((EventDataSource).toString());
   EventDataSource(List<Event> source) {
-    logger.info("Event list : $source");
     appointments = source;
   }
 
@@ -135,9 +149,8 @@ class Event {
   final DateTime to;
   Color? background;
   bool? isAllDay;
-  Event(this.title, this.from, this.to) {
+  Event(this.title, this.from, this.to, this.background) {
     isAllDay = true;
-    background = Colors.blue;
   }
   @override
   String toString() => title;

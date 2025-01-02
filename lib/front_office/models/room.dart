@@ -27,6 +27,12 @@ class Room {
   String? comment;
 
   Room({required this.name, required this.status, required this.category, this.roomBooking, this.comment});
+
+  @override
+  String toString() {
+    return name;
+  }
+
   static String getRandomCategory() {
     List<String> categories = ["Deluxe", "Executive", "Family Suite"];
     return categories[Random().nextInt(categories.length)];
@@ -70,4 +76,5 @@ class Room {
         return Colors.green;
     }
   }
+
 }
