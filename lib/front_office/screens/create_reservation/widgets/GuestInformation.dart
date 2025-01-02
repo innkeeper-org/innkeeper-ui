@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:frontend/front_office/models/GuestInformationModel.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/CustomFormTextField.dart';
 import 'package:frontend/util/colors.dart';
 
 class GuestRegistrationWidget extends StatefulWidget {
-  final Function(Map<String, String>) onSubmit;
-
-  const GuestRegistrationWidget({Key? key, required this.onSubmit})
-      : super(key: key);
+  // final GlobalKey<FormBuilderState> formKey;
+  final GuestInformationModel guestInfo;
+  const GuestRegistrationWidget({super.key, required this.guestInfo});
 
   @override
   _GuestRegistrationFormState createState() => _GuestRegistrationFormState();
 }
 
 class _GuestRegistrationFormState extends State<GuestRegistrationWidget> {
-  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
-        key: _formKey,
+        key: GlobalKey<FormBuilderState>(),
         child: Wrap(
             alignment: WrapAlignment.spaceBetween,
             runAlignment: WrapAlignment.spaceBetween,
-            children: [GuestBasicDetailsCard(_formKey)]));
+            children: [GuestBasicDetailsCard(widget.guestInfo)]));
   }
 }
 
 class GuestBasicDetailsCard extends StatelessWidget {
 
-  final GlobalKey<FormBuilderState> _formKey;
+  // final GlobalKey<FormBuilderState> _formKey;
 
-  const GuestBasicDetailsCard(this._formKey, {super.key});
+  const GuestBasicDetailsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +63,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                         FormBuilderValidators.phoneNumber()
                       ]),
                     ),
+                    SizedBox(width: 20,),
                     Expanded(
                       child: CustomFormTextField(name: "Email", validators: [
                         FormBuilderValidators.required(),
@@ -78,7 +78,9 @@ class GuestBasicDetailsCard extends StatelessWidget {
                   inputType: InputType.date,
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
                 ),
+                SizedBox(height: 20,),
                 MaterialButton(
+                  color: theme.colorScheme.primary,
                     child: const Text("Save"),
                     onPressed: (){
                     _formKey.currentState?.validate();

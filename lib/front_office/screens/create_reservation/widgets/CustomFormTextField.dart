@@ -15,19 +15,7 @@ class CustomFormTextField extends StatelessWidget {
     return FormBuilderTextField(
       name: name,
       decoration: InputDecoration(
-          labelText: name,
-          filled: true,
-          fillColor: AppColors.formField,
-          focusColor: AppColors.formField,
-          hoverColor: AppColors.formField,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide:
-                  const BorderSide(color: AppColors.formField, width: 1)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide:
-                  const BorderSide(color: AppColors.formField, width: 1))),
+          labelText: name),
       validator: FormBuilderValidators.compose(validators),
     );
   }

@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:frontend/front_office/models/CreateReservationModel.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/GuestInformation.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/RoomInformation.dart';
+import 'package:frontend/util/constants.dart';
 
 class CreateReservationPageView extends StatefulWidget {
   const CreateReservationPageView({super.key});
@@ -16,6 +19,8 @@ class _CreateReservationState extends State<CreateReservationPageView>
   late PageController _pageViewController;
   late TabController _tabController;
   int _currentPageIndex = 0;
+  CreateReservationModel reservationModel = CreateReservationModel.fromJson(Constants.EMPTY_CREATE_RESERVATION_MODEL);
+
 
   void initState() {
     super.initState();
@@ -47,8 +52,7 @@ class _CreateReservationState extends State<CreateReservationPageView>
               onPageChanged: _handlePageViewChanged,
               children: <Widget>[
                 Center(
-                  child: GuestRegistrationWidget(
-                      onSubmit: (Map<String, String> mp) {}),
+                  child: GuestRegistrationWidget(formKey: _guestInfoFormkey),
                 ),
                 Center(
                   child: RoomInformationWidget(),
