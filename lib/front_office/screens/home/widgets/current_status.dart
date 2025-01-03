@@ -50,7 +50,7 @@ class _CurrentStatusState extends State<CurrentStatus> {
         padding: EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.maxddas,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Wrap(
               children: [
