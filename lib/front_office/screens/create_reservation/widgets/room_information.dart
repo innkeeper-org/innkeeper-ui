@@ -11,30 +11,11 @@ class RoomInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrap(
-      alignment: WrapAlignment.spaceBetween,
-      runAlignment: WrapAlignment.spaceBetween,
-      children: [RoomInformationDetails()],
-    );
-  }
-}
-
-class RoomInformationDetails extends StatelessWidget {
-  const RoomInformationDetails({super.key});
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     final model = Provider.of<CreateReservationModel>(context);
     final rooms = model.rooms;
     return Container(
-        width: 800,
-        height: MediaQuery.of(context).size.width * 0.5,
         padding: const EdgeInsets.all(15),
         child: Column(children: [
-          Text(
-            "Room Information",
-            style: theme.textTheme.bodyLarge,
-          ),
           MaterialButton(
               color: Colors.blueAccent,
               onPressed: () {
@@ -45,7 +26,7 @@ class RoomInformationDetails extends StatelessWidget {
           const Divider(
             thickness: 2,
           ),
-          Flexible(
+          Expanded(
             child: ListView.builder(
               itemCount: rooms.length,
               itemBuilder: (context, index) {
