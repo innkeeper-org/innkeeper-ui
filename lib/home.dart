@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/models/property.dart';
-import 'package:frontend/front_office/providers/property_provider.dart';
 import 'package:frontend/front_office/screens/front_office_home.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
+
+import 'front_office/models/property.dart';
+import 'front_office/providers/property_provider.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -34,7 +35,7 @@ class _HomeState extends State<Home> {
       case 'Front Office':
         return FrontOfficeHome();
       default:
-        return Text("Not implemented");
+        return const Text("Not implemented");
     }
   }
 
@@ -48,7 +49,7 @@ class _HomeState extends State<Home> {
         title: Text('Innkeeper', style: theme.textTheme.bodyLarge),
         actions: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
             child: Text(selectedProperty, style: const TextStyle(
                 fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic
