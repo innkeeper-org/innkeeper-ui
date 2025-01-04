@@ -30,35 +30,33 @@ class RoomInformationDetails extends StatelessWidget {
         width: 800,
         height: MediaQuery.of(context).size.width * 0.5,
         padding: const EdgeInsets.all(15),
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "Room Information",
-                style: theme.textTheme.bodyLarge,
-              ),
-              MaterialButton(
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    model.addRoom(RoomInformationModel.fromJson(
-                        Constants.emptyRoomInformationModel));
-                  },
-                  child: const Text("Add Room")),
-              const Divider(
-                thickness: 2,
-              ),
-              Expanded(child: ListView.builder(
-                itemCount: rooms.length,
-                itemBuilder: (context, index) {
-                  return RoomInformationDetailsItem(
-                    room: rooms[index],
-                    onDelete: model.removeRoom,
-                  );
-                },
-              ),)
-
-            ]));
+        child: Column(children: [
+          Text(
+            "Room Information",
+            style: theme.textTheme.bodyLarge,
+          ),
+          MaterialButton(
+              color: Colors.blueAccent,
+              onPressed: () {
+                model.addRoom(RoomInformationModel.fromJson(
+                    Constants.emptyRoomInformationModel));
+              },
+              child: const Text("Add Room")),
+          const Divider(
+            thickness: 2,
+          ),
+          Flexible(
+            child: ListView.builder(
+              itemCount: rooms.length,
+              itemBuilder: (context, index) {
+                return RoomInformationDetailsItem(
+                  room: rooms[index],
+                  onDelete: model.removeRoom,
+                );
+              },
+            ),
+          )
+        ]));
   }
 }
 
@@ -88,17 +86,17 @@ class RoomInformationDetailsItem extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomFormTextField(
-                          name: "Room Type",
-                          value: room.roomType,
-                          onChanged: (e) {
-                            room.roomType = e!;
-                          },
-                          validators: const []),
-                      CustomFormTextField(
                           name: "Room Number",
                           value: room.roomNumber,
                           onChanged: (e) {
                             room.roomNumber = e!;
+                          },
+                          validators: const []),
+                      CustomFormTextField(
+                          name: "Room Type",
+                          value: room.roomType,
+                          onChanged: (e) {
+                            room.roomType = e!;
                           },
                           validators: const []),
                       CustomFormTextField(

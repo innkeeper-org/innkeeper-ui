@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/screens/create_reservation/create_reservation.dart';
 import 'package:frontend/front_office/screens/front_office_home.dart';
 
 class Home extends StatefulWidget {
@@ -102,15 +101,6 @@ class _HomeState extends State<Home> {
                     },
                   );
                 }),
-            ElevatedButton(
-                onPressed: () async {
-                  await showDialog<void>(
-                      context: context,
-                      builder: (context) => const AlertDialog(
-                            content: CreateReservationPageView(),
-                          ));
-                },
-                child: const Text("Create Reservation"))
           ],
         ),
       ),
