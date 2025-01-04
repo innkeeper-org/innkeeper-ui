@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'BillingInformationModel.g.dart';
+part 'billing_information_model.g.dart';
 
 @JsonSerializable()
 class BillingInformationModel {
-  final String invoiceNumber;
+  String invoiceNumber;
 
   BillingInformationModel({required this.invoiceNumber});
 

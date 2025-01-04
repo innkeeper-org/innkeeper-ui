@@ -90,7 +90,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                   height: 20,
                 ),
                 MaterialButton(
-                    color: theme.colorScheme.primary,
+                    color: Colors.blueAccent,
                     child: const Text("Save"),
                     onPressed: () {
                       formKey.currentState?.validate();

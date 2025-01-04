@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'BillingInformationModel.dart';
+import 'billing_information_model.dart';
 import 'guest_information_model.dart';
 import 'room_information_model.dart';
 
