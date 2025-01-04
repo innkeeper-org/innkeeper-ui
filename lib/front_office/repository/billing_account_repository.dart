@@ -13,7 +13,7 @@ abstract class BillingAccountRepository {
   static BillingAccount getDefaultBillingAccount({required RoomBooking roomBooking}) {
     List<Charge> chargeList = [];
     for(int i = 0; i < 10; i++) {
-      chargeList.add(Charge(id: i, description: "Room Charge", priceWithoutTax: roomBooking.priceWithoutTax, taxRate: roomBooking.taxRate, dateTime: DateTime.now()));
+      chargeList.add(Charge(id: i, description: "Room Charge", price: roomBooking.price, dateTime: DateTime.now()));
     }
     List<Payment> paymentList = [];
     for(int j = 0; j < 5; j++) {

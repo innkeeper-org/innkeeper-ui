@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/room_booking.dart';
 import 'package:frontend/front_office/navigations/index.dart';
 import 'package:frontend/front_office/repository/room_booking_repository.dart';
-import 'package:frontend/front_office/screens/room_booking/room_booking_dialog.dart';
+import 'package:frontend/front_office/screens/room_booking/room_booking_detail_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -14,23 +16,25 @@ class CalendarViewWidget extends StatefulWidget {
 
 class _CalendarViewWidgetState extends State<CalendarViewWidget> {
   Logger logger = Logger((CalendarViewWidget).toString());
-
-
-
-
-  _CalendarViewWidgetState() {
-
+  final CalendarController _calendarController = CalendarController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    _calendarController.selectedDate = DateTime.now();
+    _calendarController.displayDate = DateTime.now().add(const Duration(days: 1));
+    _calendarController.view = CalendarView.month;
+    super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-
-    return Scaffold(
-      body:
-           SfCalendar(
-            view: CalendarView.week,
+    return SfCalendar(
+            controller: _calendarController,
             allowedViews:  CalendarView.values,
+            firstDayOfWeek: DateTime.now().day,
             dataSource: RoomBookingDataSource(RoomBookingRepository.getRandomBookings()),
             monthViewSettings: const MonthViewSettings(
                 appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
@@ -39,9 +43,7 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
             agendaViewHeight: 400
             ),
             onTap: calendarTapped,
-          ),
-
-    );
+          );
   }
 
   void calendarTapped(CalendarTapDetails tapDetails) {
@@ -54,8 +56,10 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
           RoomBooking roomBooking = tapDetails.appointments![0];
           roomBookingNavigation(context, roomBooking);
           break;
+        case CalendarElement.calendarCell:
+          _calendarController.view = CalendarView.day;
         default:
-          logger.info("Navigation not implemented");
+          logger.info("Navigation not implemented:" + tapDetails.targetElement.toString());
       }
   }
 
@@ -91,17 +95,4 @@ class RoomBookingDataSource extends CalendarDataSource {
   bool isAllDay(int index) {
     return true;
   }
-}
-
-class Event {
-  final String title;
-  final DateTime from;
-  final DateTime to;
-  Color? background;
-  bool? isAllDay;
-  Event(this.title, this.from, this.to, this.background) {
-    isAllDay = true;
-  }
-  @override
-  String toString() => title;
 }

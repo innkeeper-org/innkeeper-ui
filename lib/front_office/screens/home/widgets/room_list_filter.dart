@@ -29,7 +29,7 @@ class RoomListFilter extends StatelessWidget {
         children: [
           ...RoomStatus.values.map((roomStatus){
             return Expanded(child: CheckboxListTile(
-                tileColor  : Room.getRoomStatusColor(roomStatus),
+                tileColor  :  Room.getRoomStatusColor(roomStatus),
                 title: Text(roomStatus.name),
                 value: roomStatusFilterSet.contains(roomStatus),
                 onChanged: (b) {

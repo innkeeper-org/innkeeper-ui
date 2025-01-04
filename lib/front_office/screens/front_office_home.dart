@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/property.dart';
 import 'package:frontend/front_office/providers/property_provider.dart';
-import 'package:frontend/front_office/screens/home/widgets/calendar_view_widget.dart';
-import 'package:frontend/front_office/screens/home/widgets/current_status.dart';
-import 'package:frontend/front_office/screens/room_booking/room_booking_dialog.dart';
+import 'package:frontend/front_office/screens/room_booking/room_booking_all_display.dart';
+import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_calendar_view.dart';
+import 'package:frontend/front_office/screens/home/current_status.dart';
+import 'package:frontend/front_office/screens/room_booking/room_booking_detail_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -47,17 +48,17 @@ class FrontOfficeHome extends StatefulWidget {
 
 class _FrontOfficeHomeState extends State<FrontOfficeHome> {
   Logger logger = Logger((FrontOfficeHome).toString());
-  List<String> options = ["Calendar View", "Current Status", "Pending Invoices"];
+  List<String> options = ["Room Bookings", "Current Status", "Pending Invoices"];
   late String selectedOption;
 
   _FrontOfficeHomeState() {
-    selectedOption = options[1];
+    selectedOption = options[0];
   }
 
   Widget _getBodyContent() {
       switch(selectedOption) {
-        case "Calendar View":
-          return CalendarViewWidget();
+        case "Room Bookings":
+          return RoomBookingDisplay();
         case "Current Status":
           return CurrentStatus();
         default:
@@ -79,8 +80,6 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
           body: Center(
             child: _getBodyContent(),
           ),
-        floatingActionButton: FloatingActionButton(onPressed: (){}),
-
       );
   }
 }

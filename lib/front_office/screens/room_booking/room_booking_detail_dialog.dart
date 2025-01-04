@@ -4,32 +4,26 @@ import 'package:frontend/front_office/models/guest.dart';
 import 'package:frontend/front_office/models/room.dart';
 import 'package:frontend/front_office/models/room_booking.dart';
 import 'package:frontend/front_office/repository/room_booking_repository.dart';
+import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_list_view.dart';
+
 import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_ledger.dart';
 import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_overview.dart';
 import 'package:frontend/front_office/widgets/expandable_fab.dart';
 
-class RoomBookingDialog extends StatefulWidget {
+class RoomBookingDialog extends StatelessWidget {
   final RoomBooking roomBooking;
   const RoomBookingDialog({super.key, required this.roomBooking});
-
-  @override
-  State<StatefulWidget> createState() => _RoomBookingDialogState();
-
-}
-
-class _RoomBookingDialogState extends State<RoomBookingDialog> {
 
 
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    RoomBooking roomBooking = widget.roomBooking;
     return
       Card(
           elevation: 1,
           color: themeData.secondaryHeaderColor,
           shape: const ContinuousRectangleBorder(),
-          child: DefaultTabController(length: 2,
+          child: DefaultTabController(length: 3,
               initialIndex: 0,
               child: Scaffold(
                 appBar: AppBar(
@@ -37,12 +31,14 @@ class _RoomBookingDialogState extends State<RoomBookingDialog> {
                   bottom: const TabBar(
                       tabs: <Widget>[
                         Tab(text:"Overview", icon: Icon(Icons.info)),
+                        Tab(text: "Other Room Allotments", icon: Icon(Icons.local_hotel)),
                         Tab(text: "Billing Account", icon: Icon(Icons.list))
                       ]),
                 ),
                 body: TabBarView(
                     children: <Widget>[
                       RoomBookingOverview(roomBooking: roomBooking),
+                      RoomBookingListView(roomBookingList: RoomBookingRepository.getRandomBookings()),
                       RoomBookingLedger(roomBooking: roomBooking),
                     ]),
                 floatingActionButton: ExpandableFab(distance: 112,
@@ -69,4 +65,5 @@ class _RoomBookingDialogState extends State<RoomBookingDialog> {
       );
   }
 }
+
 

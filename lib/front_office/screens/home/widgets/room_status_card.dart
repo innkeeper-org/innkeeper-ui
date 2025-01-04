@@ -21,7 +21,7 @@ class RoomStatusCard extends StatelessWidget {
         height: 200,
         padding: EdgeInsets.all(5),
         child: Card(
-          color: Room.getRoomStatusColor(room.status),
+          color:  Room.getRoomStatusColor(room.status),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    propertyProvider = Provider.of<PropertyProvider>(context);
+    propertyProvider = Provider.of<PropertyProvider>(context, listen: false);
     selectedProperty = propertyProvider.getSelectedProperty().name;
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
         actions: [
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: Text(propertyProvider.getSelectedProperty().name, style: const TextStyle(
+            child: Text(selectedProperty, style: const TextStyle(
                 fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic
             )),),
@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
                     ),
 
                     onSelected: (value) => {setState(() {
-                      propertyProvider.selectedProperty(Property(name: value));
+                      propertyProvider.setSelectedProperty(Property(name: value));
                     })},
                     itemBuilder: (BuildContext context) {
                       return options.keys.map((String choice) {

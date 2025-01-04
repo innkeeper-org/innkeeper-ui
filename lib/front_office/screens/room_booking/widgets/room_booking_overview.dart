@@ -18,6 +18,7 @@ class RoomBookingOverview extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GuestOverview(guest: roomBooking.guest!),
+            BookingOverview(roomBooking: roomBooking),
             StayOverview(roomBooking: roomBooking)
           ],
         )
@@ -97,6 +98,49 @@ class GuestOverview extends StatelessWidget {
   }
 
 }
+class BookingOverview extends StatelessWidget {
+  RoomBooking roomBooking;
+  BookingOverview({super.key, required this.roomBooking});
+  @override
+  Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+    return Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 24),
+            Text("Booking Overview", style: themeData.textTheme.headlineSmall),
+            const SizedBox(height: 20),
+            Container(
+                child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(child: TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.calendar_today),
+                        labelText: "Arrival Date",
+                      ),
+                      readOnly: true,
+                      initialValue: roomBooking.bookingCheckIn.toString(),
+                    )),
+                    Expanded(child: TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.calendar_today),
+                        labelText: "Departure Date",
+                      ),
+                      readOnly: true,
+                      initialValue: roomBooking.bookingCheckOut.toString(),
+                    )),
+
+                  ],
+                )),
+          ],
+        ));
+  }
+
+}
 
 class StayOverview extends StatelessWidget {
   RoomBooking roomBooking;
@@ -149,7 +193,20 @@ class StayOverview extends StatelessWidget {
                         labelText: "Total Price",
                       ),
                       readOnly: true,
-                      initialValue: roomBooking.totalPrice().toString(),
+                      initialValue: roomBooking.price.toString(),
+                    )),
+                    Expanded(child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: "Current Status",
+                        icon: Icon(Icons.start),
+
+                      ),
+                      textAlign: TextAlign.center,
+                      initialValue:  roomBooking.status.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: roomBooking.getRoomStatusColor()
+                      ),
                     ))
                   ],
                 )),

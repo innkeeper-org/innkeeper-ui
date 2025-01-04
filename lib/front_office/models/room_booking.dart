@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/guest.dart';
+import 'package:frontend/front_office/models/price.dart';
 import 'package:frontend/front_office/models/room.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -19,42 +20,47 @@ enum RoomBookingStatus {
 @JsonSerializable()
 class RoomBooking {
   String roomBookingId;
-  RoomBookingStatus? status;
+  late RoomBookingStatus status;
   Guest? guest;
   Room room;
   DateTime? checkIn;
   DateTime? checkOut;
   DateTime bookingCheckIn;
   DateTime bookingCheckOut;
-  double priceWithoutTax;
-  double taxRate;
+  Price price;
+  late int pax;
   RoomBooking({
     required this.roomBookingId,
     required this.room,
     required this.bookingCheckIn,
     required this.bookingCheckOut,
-    required this.priceWithoutTax,
-    required this.taxRate,
-    status
+    required this.price,
+    status,
+    pax
 }) {
     this.status = status ?? RoomBookingStatus.BOOKED;
+    this.pax = 1;
   }
 
-  double totalPrice() {
-    return priceWithoutTax * (1 + taxRate / 100);
+  _checkIn(DateTime time) {
+    checkIn = time;
   }
 
   static RoomBooking generateRandomRoomBooking(Room room) {
     DateTime checkIn = DateTime.now().add(Duration(days: Random().nextInt(15)));
     DateTime checkOut = checkIn.add(Duration(days: Random().nextInt(2)));
     double priceWithoutTax = (1500.00 + Random().nextInt(1000));
+    Price price = Price(priceWithoutTax: priceWithoutTax, discountRate: 10, taxRate: 12);
     RoomBooking roomBooking = new RoomBooking(roomBookingId: Random().nextInt(1000).toString(), room: room,
-        bookingCheckIn: checkIn, bookingCheckOut: checkOut,
-        priceWithoutTax: priceWithoutTax, taxRate: 12);
+        bookingCheckIn: checkIn,
+        bookingCheckOut: checkOut,
+        price: price);
     List<String> guestNames = ["Mr Bob", "Mr Raju", "Mrs Rita", "Mrs Neha", "Taneja"];
     roomBooking.guest = new Guest(name: guestNames[Random().nextInt(guestNames.length)], phone: "1234567890",
     email: "abc@abc.com", company: "ABC Pvt Ltd.");
     roomBooking.status = RoomBookingStatus.values[Random().nextInt(RoomBookingStatus.values.length)];
+    if(roomBooking.status == RoomBookingStatus.CHECKED_OUT) roomBooking.status = RoomBookingStatus.BOOKED;
+    roomBooking._checkIn(checkIn);
     return roomBooking;
   }
 
@@ -67,7 +73,7 @@ class RoomBooking {
       case RoomBookingStatus.CANCELLED:
         return Colors.grey;
       default:
-        return Colors.lightBlueAccent;
+        return Colors.pink;
     }
   }
 

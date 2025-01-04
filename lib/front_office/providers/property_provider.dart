@@ -26,7 +26,7 @@ class PropertyProvider extends ChangeNotifier {
     _propertyList.remove(property);
   }
 
-  void selectedProperty(Property property) {
+  void setSelectedProperty(Property property) {
     _selectedProperty = property;
   }
 }

@@ -40,10 +40,10 @@ class RoomBookingLedger extends StatelessWidget {
                 Text(charge.dateTime.toString(), style: theme.textTheme.bodyMedium),
                 Text(roomBooking.room.toString(), style: theme.textTheme.bodyMedium),
                 Text(charge.description, style: theme.textTheme.bodyMedium),
-                Text(charge.priceWithoutTax.toStringAsFixed(2), style: theme.textTheme.bodyMedium),
-                Text(charge.taxRate.toString(), style: theme.textTheme.bodyMedium),
+                Text(charge.price.priceWithoutTax.toStringAsFixed(2), style: theme.textTheme.bodyMedium),
+                Text(charge.price.taxRate.toString(), style: theme.textTheme.bodyMedium),
                 Text("-", style: theme.textTheme.bodyMedium),
-                Text(charge.amount().toStringAsFixed(2), style: theme.textTheme.bodyMedium)
+                Text(charge.price.getAmount().toStringAsFixed(2), style: theme.textTheme.bodyMedium)
               ]
           ));
     }
