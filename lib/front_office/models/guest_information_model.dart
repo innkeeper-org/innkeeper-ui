@@ -1,13 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'GuestInformationModel.g.dart';
+part 'guest_information_model.g.dart';
 
 @JsonSerializable()
 class GuestInformationModel {
-  final String name;
-  final String phone;
+  String name;
+  String phone;
   String? company;
-  final String email;
+  String email;
 
   GuestInformationModel(
       {required this.name, required this.phone, required this.email});

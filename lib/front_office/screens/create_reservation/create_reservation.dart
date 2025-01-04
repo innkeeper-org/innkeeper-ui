@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:frontend/front_office/models/CreateReservationModel.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/GuestInformation.dart';
+import 'package:frontend/front_office/models/create_reservation_model.dart';
+import 'package:frontend/front_office/screens/create_reservation/widgets/guest_information.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/RoomInformation.dart';
 import 'package:frontend/util/constants.dart';
+import 'package:provider/provider.dart';
 
 class CreateReservationPageView extends StatefulWidget {
   const CreateReservationPageView({super.key});
@@ -19,9 +18,10 @@ class _CreateReservationState extends State<CreateReservationPageView>
   late PageController _pageViewController;
   late TabController _tabController;
   int _currentPageIndex = 0;
-  CreateReservationModel reservationModel = CreateReservationModel.fromJson(Constants.EMPTY_CREATE_RESERVATION_MODEL);
+  CreateReservationModel reservationModel =
+      CreateReservationModel.fromJson(Constants.EMPTY_CREATE_RESERVATION_MODEL);
 
-
+  @override
   void initState() {
     super.initState();
     _pageViewController = PageController();
@@ -39,37 +39,39 @@ class _CreateReservationState extends State<CreateReservationPageView>
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.width * 0.5,
-            child: PageView(
-              /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-              /// Use [Axis.vertical] to scroll vertically.
-              controller: _pageViewController,
-              onPageChanged: _handlePageViewChanged,
-              children: <Widget>[
-                Center(
-                  child: GuestRegistrationWidget(formKey: _guestInfoFormkey),
-                ),
-                Center(
-                  child: RoomInformationWidget(),
-                ),
-                Center(
-                  child: Text('Third Page', style: textTheme.titleLarge),
-                ),
-              ],
-            )),
-        PageIndicator(
-          tabController: _tabController,
-          currentPageIndex: _currentPageIndex,
-          onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-          isOnDesktopAndWeb: _isOnDesktopAndWeb,
-        ),
-      ],
-    );
+    return ChangeNotifierProvider(
+        create: (_) => reservationModel,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: <Widget>[
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.width * 0.5,
+                child: PageView(
+                  /// [PageView.scrollDirection] defaults to [Axis.horizontal].
+                  /// Use [Axis.vertical] to scroll vertically.
+                  controller: _pageViewController,
+                  onPageChanged: _handlePageViewChanged,
+                  children: <Widget>[
+                    Center(
+                      child: GuestRegistrationWidget(),
+                    ),
+                    Center(
+                      child: Text('Second Page', style: textTheme.titleLarge),
+                    ),
+                    Center(
+                      child: Text('Third Page', style: textTheme.titleLarge),
+                    ),
+                  ],
+                )),
+            PageIndicator(
+              tabController: _tabController,
+              currentPageIndex: _currentPageIndex,
+              onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+              isOnDesktopAndWeb: _isOnDesktopAndWeb,
+            ),
+          ],
+        ));
   }
 
   void _handlePageViewChanged(int currentPageIndex) {

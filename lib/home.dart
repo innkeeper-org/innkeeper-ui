@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/screens/create_reservation/CreateReservation.dart';
+import 'package:frontend/front_office/screens/create_reservation/create_reservation.dart';
 import 'package:frontend/front_office/screens/front_office_home.dart';
 
 class Home extends StatefulWidget {

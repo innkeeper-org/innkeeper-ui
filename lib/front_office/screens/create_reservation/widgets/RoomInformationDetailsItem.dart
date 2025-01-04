@@ -7,16 +7,16 @@ class RoomInformationDetailsItem extends StatelessWidget {
   Widget build(BuildContext context){
     return Column(
       children: [
-        CustomFormTextField(name: "Room Type", validators: []),
-        CustomFormTextField(name: "Room Number", validators: []),
-        CustomFormTextField(name: "Adults", validators: []),
-        CustomFormTextField(name: "Children", validators: []),
-        CustomFormTextField(name: "Nights", validators: []),
-        CustomFormTextField(name: "Room Rate", validators: []),
-        CustomFormTextField(name: "Extra Charges", validators: []),
-        CustomFormTextField(name: "Discount", validators: []),
-        CustomFormTextField(name: "Tax", validators: []),
-        CustomFormTextField(name: "Amount", validators: []),
+        CustomFormTextField(name: "Room Type", onChanged: (e){}, validators: []),
+        // CustomFormTextField(name: "Room Number", validators: []),
+        // CustomFormTextField(name: "Adults", validators: []),
+        // CustomFormTextField(name: "Children", validators: []),
+        // CustomFormTextField(name: "Nights", validators: []),
+        // CustomFormTextField(name: "Room Rate", validators: []),
+        // CustomFormTextField(name: "Extra Charges", validators: []),
+        // CustomFormTextField(name: "Discount", validators: []),
+        // CustomFormTextField(name: "Tax", validators: []),
+        // CustomFormTextField(name: "Amount", validators: []),
       ],
     );
   }
