@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:frontend/front_office/models/create_reservation_model.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/CustomFormTextField.dart';
+import 'package:frontend/front_office/screens/create_reservation/widgets/custom_form_text_field.dart';
 import 'package:provider/provider.dart';
 
 class GuestRegistrationWidget extends StatelessWidget {
@@ -42,6 +42,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                     Expanded(
                         child: CustomFormTextField(
                             name: "Name",
+                            value: guestInfo.name,
                             onChanged: (value) {
                               guestInfo.name = value!;
                             },
@@ -53,6 +54,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                     Expanded(
                       child: CustomFormTextField(
                           name: "Phone",
+                          value: guestInfo.phone,
                           onChanged: (value) {
                             guestInfo.phone = value!;
                           },
@@ -67,6 +69,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                     Expanded(
                       child: CustomFormTextField(
                           name: "Email",
+                          value: guestInfo.email,
                           onChanged: (value) {
                             guestInfo.email = value!;
                           },

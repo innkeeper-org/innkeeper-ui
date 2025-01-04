@@ -1,15 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'RoomInformationModel.g.dart';
+part 'room_information_model.g.dart';
 
 @JsonSerializable()
 class RoomInformationModel {
-  final String roomType;
-  final String roomNumber;
-  final String adults;
-  final String children;
-  final String nights;
-  final String rate;
+  String roomType;
+  String roomNumber;
+  String adults;
+  String children;
+  String nights;
+  String rate;
 
   RoomInformationModel(
       {required this.roomType,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'RoomInformationModel.dart';
+part of 'room_information_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,5 +1,5 @@
 class Constants {
-  static const Map<String, dynamic> EMPTY_CREATE_RESERVATION_MODEL = {
+  static const Map<String, dynamic> emptyCreateReservationModel = {
     "guest": {
       "name": "",
       "phone": "",
@@ -19,5 +19,14 @@ class Constants {
     "billing": {
       "invoiceNumber":""
     },
+  };
+
+  static const Map<String, dynamic> emptyRoomInformationModel ={
+    "roomType": "",
+    "roomNumber":"",
+    "adults":"",
+    "children":"",
+    "nights":"",
+    "rate":"",
   };
 }

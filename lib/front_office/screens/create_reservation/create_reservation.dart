@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/create_reservation_model.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/guest_information.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/RoomInformation.dart';
+import 'package:frontend/front_office/screens/create_reservation/widgets/room_information.dart';
 import 'package:frontend/util/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,7 @@ class _CreateReservationState extends State<CreateReservationPageView>
   late TabController _tabController;
   int _currentPageIndex = 0;
   CreateReservationModel reservationModel =
-      CreateReservationModel.fromJson(Constants.EMPTY_CREATE_RESERVATION_MODEL);
+      CreateReservationModel.fromJson(Constants.emptyCreateReservationModel);
 
   @override
   void initState() {
@@ -56,8 +56,8 @@ class _CreateReservationState extends State<CreateReservationPageView>
                     Center(
                       child: GuestRegistrationWidget(),
                     ),
-                    Center(
-                      child: Text('Second Page', style: textTheme.titleLarge),
+                    const Center(
+                      child: RoomInformationWidget(),
                     ),
                     Center(
                       child: Text('Third Page', style: textTheme.titleLarge),
