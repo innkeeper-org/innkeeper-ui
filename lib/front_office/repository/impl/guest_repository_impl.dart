@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:frontend/front_office/models/guest.dart';
-import 'package:frontend/front_office/models/GuestRegistrationRequest.dart';
+import 'package:frontend/front_office/models/guest_registration_request.dart';
 import 'package:frontend/front_office/repository/guest_repository.dart';
 import 'package:frontend/front_office/util/dio_fo_client.dart';
 import 'package:frontend/util/dio_client.dart';
