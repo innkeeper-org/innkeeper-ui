@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/front_office/models/property.dart';
+import 'package:frontend/front_office/providers/property_provider.dart';
 import 'package:frontend/front_office/screens/home/widgets/calendar_view_widget.dart';
 import 'package:frontend/front_office/screens/home/widgets/current_status.dart';
 import 'package:frontend/front_office/screens/room_booking/room_booking_dialog.dart';
 import 'package:logging/logging.dart';
+import 'package:provider/provider.dart';
 
 class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
 
@@ -20,13 +23,12 @@ class FOAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       backgroundColor: theme.secondaryHeaderColor,
       title: Wrap(
-        children: options.map((option) =>
+        children: [...options.map((option) =>
          TextButton(
            onPressed: () => {onPressed(option)},
            child: Text(option,
                style : option == selectedOption ? const TextStyle(fontWeight: FontWeight.bold) : null),
-         ))
-          .toList()
+         ))]
       ),
 
 

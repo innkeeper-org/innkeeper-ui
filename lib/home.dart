@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/front_office/models/property.dart';
+import 'package:frontend/front_office/providers/property_provider.dart';
 import 'package:frontend/front_office/screens/front_office_home.dart';
 import 'package:logging/logging.dart';
+import 'package:provider/provider.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -11,21 +14,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String selectedPage = '';
-  String selectedProperty = 'Hotel Lemon Tree';
+  late String selectedProperty;
+  late PropertyProvider propertyProvider;
   Logger logger = Logger((Home).toString());
 
   Map<String, List<String>> options = {};
 
   _HomeState() {
     options = {
-      "Hotel Lemon Tree" : ['Front Office', 'Expenses', 'Accounts'],
-      "Chilliz Restaurant" : ['Billing', 'Inventory']
+      "Hotel Hive" : ['Front Office', 'Expenses', 'Accounts'],
+      "Chilliz Restaurant" : ['Front Office','Billing', 'Inventory']
     };
-    selectedProperty = options.keys.first;
-    selectedPage = options[selectedProperty]![0];
   }
 
   Widget _getSelectedPage() {
+    selectedPage = options[selectedProperty]![0];
     logger.info("$selectedProperty : $selectedPage");
     switch(selectedPage) {
       case 'Front Office':
@@ -38,9 +41,20 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    propertyProvider = Provider.of<PropertyProvider>(context);
+    selectedProperty = propertyProvider.getSelectedProperty().name;
     return Scaffold(
       appBar: AppBar(
         title: Text('Innkeeper', style: theme.textTheme.bodyLarge),
+        actions: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Text(propertyProvider.getSelectedProperty().name, style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic
+            )),),
+
+        ],
         // actions: const [
         //   Wrap(
         //     children: [
@@ -64,11 +78,11 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Innkeeper',
-                    style: theme.textTheme.headlineSmall
+                      'Innkeeper',
+                      style: theme.textTheme.headlineSmall
                   ),
                   Text("For support kindly reach to 7017002865",
-                  style: theme.textTheme.labelSmall,),
+                    style: theme.textTheme.labelSmall,),
                   Divider(),
                   PopupMenuButton<String>(
                     icon:Row(
@@ -80,8 +94,7 @@ class _HomeState extends State<Home> {
                     ),
 
                     onSelected: (value) => {setState(() {
-                      selectedProperty = value;
-                      selectedPage = options[selectedProperty]![0];
+                      propertyProvider.selectedProperty(Property(name: value));
                     })},
                     itemBuilder: (BuildContext context) {
                       return options.keys.map((String choice) {
@@ -100,22 +113,22 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 itemCount: options.keys.length,
                 itemBuilder: (context, index) {
-                    return  ListTile(
-                      leading: const Icon(Icons.work),
-                      title:  Text(options[selectedProperty]![index], style: theme.textTheme.bodyMedium,),
-                      onTap: () {
-                        setState(() {
-                          selectedPage = options[selectedProperty]![index];
-                          Navigator.pop(context);
-                        });
-                      },
-                    );}
+                  return  ListTile(
+                    leading: const Icon(Icons.work),
+                    title:  Text(options[selectedProperty]![index], style: theme.textTheme.bodyMedium,),
+                    onTap: () {
+                      setState(() {
+                        selectedPage = options[selectedProperty]![index];
+                        Navigator.pop(context);
+                      });
+                    },
+                  );}
             ),
           ],
         ),
       ),
       body: Center(
-        child: _getSelectedPage()
+          child: _getSelectedPage()
       ),
     );
   }

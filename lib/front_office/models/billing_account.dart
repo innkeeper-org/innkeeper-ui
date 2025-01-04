@@ -60,7 +60,7 @@ class BillingAccount {
    required this.paymentList,
 });
 
-  getBalance() {
+  double getBalance() {
     double balance = 0.0;
     for(Charge charge in chargeList) {
       balance += charge.amount();

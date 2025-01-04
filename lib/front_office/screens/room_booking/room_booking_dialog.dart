@@ -6,6 +6,7 @@ import 'package:frontend/front_office/models/room_booking.dart';
 import 'package:frontend/front_office/repository/room_booking_repository.dart';
 import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_ledger.dart';
 import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_overview.dart';
+import 'package:frontend/front_office/widgets/expandable_fab.dart';
 
 class RoomBookingDialog extends StatefulWidget {
   final RoomBooking roomBooking;
@@ -17,7 +18,7 @@ class RoomBookingDialog extends StatefulWidget {
 }
 
 class _RoomBookingDialogState extends State<RoomBookingDialog> {
-  
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,26 @@ class _RoomBookingDialogState extends State<RoomBookingDialog> {
                       RoomBookingOverview(roomBooking: roomBooking),
                       RoomBookingLedger(roomBooking: roomBooking),
                     ]),
+                floatingActionButton: ExpandableFab(distance: 112,
+                  initialOpen: false,
+                  children: [
+                    ActionButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.money),
+                      description: "Add charge",
+                    ),
+                    ActionButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.exit_to_app),
+                      description: "Checkout",
+                    ),
+                    ActionButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.print),
+                      description: "Print Statement",
+                    ),
+                  ],
+                ),
               ))
       );
   }
