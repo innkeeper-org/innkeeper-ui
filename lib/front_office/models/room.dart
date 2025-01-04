@@ -9,11 +9,11 @@ import 'package:json_annotation/json_annotation.dart';
 part 'room.g.dart';
 
 enum RoomStatus {
+  READY,
   BOOKED,
   BLOCKED,
   CLEANING,
-  CHECKED_IN,
-  READY;
+  CHECKED_IN;
 }
 
 
@@ -27,6 +27,12 @@ class Room {
   String? comment;
 
   Room({required this.name, required this.status, required this.category, this.roomBooking, this.comment});
+
+  @override
+  String toString() {
+    return name;
+  }
+
   static String getRandomCategory() {
     List<String> categories = ["Deluxe", "Executive", "Family Suite"];
     return categories[Random().nextInt(categories.length)];
@@ -42,8 +48,8 @@ class Room {
     Room room = Room(name: name, status: status, category: getRandomCategory());
     if(status == RoomStatus.BOOKED || status == RoomStatus.CHECKED_IN) {
       roomBooking = RoomBooking.generateRandomRoomBooking(room);
+      room.roomBooking = roomBooking;
     }
-    room.roomBooking = roomBooking;
     return room;
   }
 
@@ -55,19 +61,21 @@ class Room {
     return name.contains(text) ||
         (roomBooking?.guest?.hasSearchText(text) == true);
   }
-  static Color getRoomStatusColor(RoomStatus roomStatus) {
-    switch(roomStatus) {
+
+  static Color getRoomStatusColor(RoomStatus status) {
+    switch(status) {
       case RoomStatus.BOOKED:
-        return Colors.blueGrey;
+        return Colors.lightBlueAccent.shade100;
       case RoomStatus.BLOCKED:
-        return Colors.black12;
-      case RoomStatus.CLEANING:
-        return Colors.yellowAccent;
+        return Colors.blueGrey.shade300;
       case RoomStatus.CHECKED_IN:
-        return Colors.blue;
+        return Colors.lightBlue;
+      case RoomStatus.CLEANING:
+        return Colors.limeAccent.shade100;
       case RoomStatus.READY:
       default:
-        return Colors.green;
+        return Colors.white70;
     }
   }
+
 }

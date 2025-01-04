@@ -11,8 +11,9 @@ RoomBooking _$RoomBookingFromJson(Map<String, dynamic> json) => RoomBooking(
       room: Room.fromJson(json['room'] as Map<String, dynamic>),
       bookingCheckIn: DateTime.parse(json['bookingCheckIn'] as String),
       bookingCheckOut: DateTime.parse(json['bookingCheckOut'] as String),
-      priceWithoutTax: (json['priceWithoutTax'] as num).toDouble(),
-      taxRate: (json['taxRate'] as num).toDouble(),
+      price: Price.fromJson(json['price'] as Map<String, dynamic>),
+      status: json['status'],
+      pax: json['pax'],
     )
       ..guest = json['guest'] == null
           ? null
@@ -27,12 +28,20 @@ RoomBooking _$RoomBookingFromJson(Map<String, dynamic> json) => RoomBooking(
 Map<String, dynamic> _$RoomBookingToJson(RoomBooking instance) =>
     <String, dynamic>{
       'roomBookingId': instance.roomBookingId,
+      'status': _$RoomBookingStatusEnumMap[instance.status]!,
       'guest': instance.guest,
       'room': instance.room,
       'checkIn': instance.checkIn?.toIso8601String(),
       'checkOut': instance.checkOut?.toIso8601String(),
       'bookingCheckIn': instance.bookingCheckIn.toIso8601String(),
       'bookingCheckOut': instance.bookingCheckOut.toIso8601String(),
-      'priceWithoutTax': instance.priceWithoutTax,
-      'taxRate': instance.taxRate,
+      'price': instance.price,
+      'pax': instance.pax,
     };
+
+const _$RoomBookingStatusEnumMap = {
+  RoomBookingStatus.BOOKED: 'BOOKED',
+  RoomBookingStatus.CHECKED_IN: 'CHECKED_IN',
+  RoomBookingStatus.CHECKED_OUT: 'CHECKED_OUT',
+  RoomBookingStatus.CANCELLED: 'CANCELLED',
+};

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/room.dart';
+import 'package:frontend/front_office/navigations/index.dart';
 
 class RoomStatusCard extends StatelessWidget {
 
@@ -12,12 +13,15 @@ class RoomStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    return Container(
+    return
+      InkWell(
+        onTap: room.roomBooking != null ? () => roomBookingNavigation(context, room.roomBooking) : null,
+        child: Container(
         width: 200,
         height: 200,
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(5),
         child: Card(
-          color: Room.getRoomStatusColor(room.status),
+          color:  Room.getRoomStatusColor(room.status),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -29,7 +33,7 @@ class RoomStatusCard extends StatelessWidget {
               Text(room.status.name, style: theme.textTheme.bodyMedium)
             ],
           )
-        ));
+        )));
 
   }
   

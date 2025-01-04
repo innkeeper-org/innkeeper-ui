@@ -10,4 +10,16 @@ abstract class RoomBookingRepository {
 
   Future<RoomBooking> getRoomBooking({required int id});
   Future<List<RoomBooking>> getRoomBookingByDate({required DateTime from, required DateTime to});
+
+
+  static List<RoomBooking> getRandomBookings() {
+    List<RoomBooking> retVal = [];
+    for(int i = 301; i < 400; i++) {
+      Room room = Room.getRandomRoom(i.toString());
+      if(room.roomBooking != null) {
+        retVal.add(room.roomBooking!);
+      }
+    }
+    return retVal;
+  }
 }

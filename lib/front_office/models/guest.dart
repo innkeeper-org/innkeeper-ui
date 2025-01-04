@@ -7,9 +7,15 @@ class Guest {
   String name;
   String? phone;
   String? company;
+  String? email;
+  String? address;
 
   Guest({
-    required this.name
+    required this.name,
+    this.phone,
+    this.email,
+    this.company,
+    this.address = "12 Ashima Vihar, Turner Road, Dehradun"
   });
 
   bool hasSearchText(String? text) {

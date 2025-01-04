@@ -25,9 +25,9 @@ Map<String, dynamic> _$RoomToJson(Room instance) => <String, dynamic>{
     };
 
 const _$RoomStatusEnumMap = {
+  RoomStatus.READY: 'READY',
   RoomStatus.BOOKED: 'BOOKED',
   RoomStatus.BLOCKED: 'BLOCKED',
   RoomStatus.CLEANING: 'CLEANING',
   RoomStatus.CHECKED_IN: 'CHECKED_IN',
-  RoomStatus.READY: 'READY',
 };

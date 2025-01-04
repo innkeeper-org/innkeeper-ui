@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:frontend/front_office/models/create_room_booking_request.dart';
 import 'package:frontend/front_office/models/room.dart';
@@ -49,5 +51,5 @@ class RoomBookingRepositoryImpl implements RoomBookingRepository {
         fromJson: (json) => RoomBooking.fromJson(json),
         isList: true);
   }
-  
+  }
 }
