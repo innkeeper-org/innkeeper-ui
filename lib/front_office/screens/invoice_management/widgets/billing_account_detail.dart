@@ -1,18 +1,13 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/front_office/models/guest.dart';
-import 'package:frontend/front_office/models/room.dart';
-import 'package:frontend/front_office/models/room_booking.dart';
+import 'package:frontend/front_office/models/billing_account.dart';
 import 'package:frontend/front_office/repository/room_booking_repository.dart';
 import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_list_view.dart';
 
-import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_ledger.dart';
-import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_overview.dart';
-import 'package:frontend/front_office/widgets/expandable_fab.dart';
-
-class RoomBookingDialog extends StatelessWidget {
-  final RoomBooking roomBooking;
-  const RoomBookingDialog({super.key, required this.roomBooking});
+class BillingAccountDetail extends StatelessWidget {
+  final BillingAccount billingAccount;
+  const BillingAccountDetail({super.key, required this.billingAccount});
 
 
   @override
@@ -27,19 +22,19 @@ class RoomBookingDialog extends StatelessWidget {
               initialIndex: 0,
               child: Scaffold(
                 appBar: AppBar(
-                  title: const Text("Room Booking Details"),
+                  title: const Text("Billing Account Detail"),
                   bottom: const TabBar(
                       tabs: <Widget>[
                         Tab(text:"Overview", icon: Icon(Icons.info)),
-                        Tab(text: "Other Room Allotments", icon: Icon(Icons.local_hotel)),
-                        Tab(text: "Billing Account", icon: Icon(Icons.list))
+                        Tab(text: "Room Allotments", icon: Icon(Icons.local_hotel)),
+                        // Tab(text: "Billing Account", icon: Icon(Icons.list))
                       ]),
                 ),
                 body: TabBarView(
                     children: <Widget>[
-                      RoomBookingOverview(roomBooking: roomBooking),
-                      RoomBookingListView(roomBookingList: RoomBookingRepository.getRandomBookings()),
-                      RoomBookingLedger(roomBooking: roomBooking),
+                      // RoomBookingOverview(roomBooking: roomBooking),
+                      RoomBookingListView(roomBookingList: billingAccount.roomBookingList ?? []),
+                      // RoomBookingLedger(roomBooking: roomBooking),
                     ]),
                 // floatingActionButton: ExpandableFab(distance: 112,
                 //   initialOpen: false,
@@ -65,5 +60,3 @@ class RoomBookingDialog extends StatelessWidget {
       );
   }
 }
-
-

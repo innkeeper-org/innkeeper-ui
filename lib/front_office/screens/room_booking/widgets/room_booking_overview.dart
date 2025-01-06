@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/guest.dart';
 import 'package:frontend/front_office/models/room_booking.dart';
+import 'package:frontend/front_office/widgets/expandable_fab.dart';
 
 class RoomBookingOverview extends StatelessWidget {
   RoomBooking roomBooking;
@@ -19,7 +20,25 @@ class RoomBookingOverview extends StatelessWidget {
           children: [
             GuestOverview(guest: roomBooking.guest!),
             BookingOverview(roomBooking: roomBooking),
-            StayOverview(roomBooking: roomBooking)
+            StayOverview(roomBooking: roomBooking),
+            SizedBox(height: 80,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                OutlinedButton.icon(
+                    onPressed: (){},
+                    label: Text("Print Statement"),
+                    icon: Icon(Icons.print)),
+                OutlinedButton.icon(
+                    onPressed: (){},
+                    label: Text("Add Charge"),
+                    icon: Icon(Icons.money)),
+                OutlinedButton.icon(
+                    onPressed: (){},
+                    label: Text("Check out"),
+                    icon: Icon(Icons.exit_to_app)),
+              ],
+            )
           ],
         )
     );

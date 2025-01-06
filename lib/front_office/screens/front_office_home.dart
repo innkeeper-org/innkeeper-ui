@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/property.dart';
 import 'package:frontend/front_office/providers/property_provider.dart';
+import 'package:frontend/front_office/screens/invoice_management/invoice_list_view.dart';
 import 'package:frontend/front_office/screens/room_booking/room_booking_all_display.dart';
 import 'package:frontend/front_office/screens/room_booking/widgets/room_booking_calendar_view.dart';
 import 'package:frontend/front_office/screens/home/current_status.dart';
@@ -61,6 +62,8 @@ class _FrontOfficeHomeState extends State<FrontOfficeHome> {
           return RoomBookingDisplay();
         case "Current Status":
           return CurrentStatus();
+        case "Pending Invoices":
+          return InvoiceListView();
         default:
           return Text("Unimplemented error");
       }

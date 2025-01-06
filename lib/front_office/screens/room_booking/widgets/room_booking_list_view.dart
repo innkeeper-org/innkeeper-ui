@@ -26,7 +26,7 @@ class RoomBookingListView extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     tableRows.add(getHeader(theme, header));
     for(RoomBooking roomBooking in roomBookingList) {
-      TableRow tableRow = TableRow(
+      tableRows.add(TableRow(
           decoration: BoxDecoration(
               color: roomBooking.getRoomStatusColor().withOpacity(0.5)
           ),
@@ -39,8 +39,7 @@ class RoomBookingListView extends StatelessWidget {
             Text(roomBooking.pax.toString(), style: theme.textTheme.bodyMedium),
             Text(roomBooking.price.getAmount().toString(), style: theme.textTheme.bodyMedium),
           ]
-      );
-      tableRows.add(tableRow);
+      ));
     }
     return SingleChildScrollView(
         child: Container(

@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/guest.dart';
 import 'package:frontend/front_office/models/price.dart';
 import 'package:frontend/front_office/models/room_booking.dart';
@@ -43,16 +44,18 @@ class Payment {
 class BillingAccount {
  final int id;
  final Guest guest;
- final BillingAccountStatus billingAccountStatus;
+ final BillingAccountStatus status;
  final List<Charge> chargeList;
  final List<Payment> paymentList;
+ final List<RoomBooking>? roomBookingList;
 
  BillingAccount({
    required this.id,
    required this.guest,
-   required this.billingAccountStatus,
+   required this.status,
    required this.chargeList,
    required this.paymentList,
+   this.roomBookingList,
 });
 
   double getBalance() {
@@ -64,6 +67,25 @@ class BillingAccount {
       balance -= payment.amount;
     }
     return balance;
+  }
+
+  bool readyForInvoice() {
+    for(RoomBooking roomBooking in roomBookingList ?? []) {
+      if(roomBooking.status == RoomBookingStatus.BOOKED || roomBooking.status == RoomBookingStatus.CHECKED_OUT) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  Color getColor() {
+    if(status == BillingAccountStatus.closed) {
+      return Colors.grey.shade200;
+    } else if(readyForInvoice()) {
+      return Colors.red.shade100;
+    } else {
+      return Colors.yellowAccent.shade100;
+    }
   }
 
 }
