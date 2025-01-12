@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:frontend/front_office/models/create_reservation_model.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/custom_form_text_field.dart';
 import 'package:provider/provider.dart';
 
 class BillingInformationWidget extends StatelessWidget {
@@ -41,13 +40,16 @@ class BillingInformationDetailsCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: CustomFormTextField(
-                            name: "Invoice",
-                            value: billInfo.invoiceNumber,
-                            onChanged: (value) {
-                              billInfo.invoiceNumber = value!;
-                            },
-                            validators: [FormBuilderValidators.required()])),
+                      child: FormBuilderTextField(
+                          name: "Invoice",
+                          initialValue: billInfo.invoiceNumber,
+                          decoration: const InputDecoration(labelText: "Invoice No."),
+                          onChanged: (value) {
+                            billInfo.invoiceNumber = value!;
+                          },
+                          validator: FormBuilderValidators.compose(
+                              [FormBuilderValidators.required()])),
+                    )
                   ],
                 ),
                 const SizedBox(

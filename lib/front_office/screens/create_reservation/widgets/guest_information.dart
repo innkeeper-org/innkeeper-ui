@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:frontend/front_office/models/create_reservation_model.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/custom_form_text_field.dart';
 import 'package:provider/provider.dart';
 
 class GuestRegistrationWidget extends StatelessWidget {
@@ -40,64 +39,64 @@ class GuestBasicDetailsCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: CustomFormTextField(
+                        child: FormBuilderTextField(
                             name: "Name",
-                            value: guestInfo.name,
+                            decoration: const InputDecoration(labelText: "Name"),
+                            initialValue: guestInfo.name,
                             onChanged: (value) {
                               guestInfo.name = value!;
                             },
-                            validators: [FormBuilderValidators.required()])),
+                            validator: FormBuilderValidators.compose(
+                                [FormBuilderValidators.required()]))),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: CustomFormTextField(
+                      child: FormBuilderTextField(
                           name: "Phone",
-                          value: guestInfo.phone.toString(),
+                          initialValue: guestInfo.phone.toString(),
+                          decoration: const InputDecoration(labelText: "Phone"),
                           onChanged: (value) {
                             guestInfo.phone = value!;
                           },
-                          validators: [
+                          validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
                             FormBuilderValidators.phoneNumber()
-                          ]),
+                          ])),
                     ),
                     const SizedBox(
                       width: 20,
                     ),
                     Expanded(
-                      child: CustomFormTextField(
+                      child: FormBuilderTextField(
                           name: "Email",
-                          value: guestInfo.email.toString(),
+                          initialValue: guestInfo.email.toString(),
+                          decoration: const InputDecoration(labelText: "Email"),
                           onChanged: (value) {
                             guestInfo.email = value!;
                           },
-                          validators: [
+                          validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
                             FormBuilderValidators.email()
-                          ]),
+                          ])),
                     ),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                        child: CustomFormTextField(
+                        child: FormBuilderTextField(
                             name: "Address",
-                            value: guestInfo.address.toString(),
+                            initialValue: guestInfo.address.toString(),
+                            decoration: const InputDecoration(labelText: "Address"),
                             onChanged: (value) {
                               guestInfo.address = value!;
                             },
-                            validators: [FormBuilderValidators.required()])),
+                            validator: FormBuilderValidators.compose(
+                                [FormBuilderValidators.required()]))),
                   ],
                 ),
-                // FormBuilderDateTimePicker(
-                //   name: "DOB",
-                //   decoration: const InputDecoration(labelText: "DOB"),
-                //   inputType: InputType.date,
-                //   initialEntryMode: DatePickerEntryMode.calendarOnly,
-                // ),
                 const SizedBox(
                   height: 20,
                 ),

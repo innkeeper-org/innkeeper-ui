@@ -4,7 +4,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:frontend/front_office/enum/room_booking_status.dart';
 import 'package:frontend/front_office/models/create_reservation_model.dart';
-import 'package:frontend/front_office/screens/create_reservation/widgets/custom_form_text_field.dart';
 import 'package:frontend/util/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -71,13 +70,16 @@ class RoomInformationDetailsItem extends StatelessWidget {
                   key: GlobalKey<FormBuilderState>(),
                   child: Column(
                     children: [
-                      CustomFormTextField(
-                          name: "Room Booking ID",
-                          value: roomBooking.roomBookingId,
-                          onChanged: (e) {
-                            roomBooking.roomBookingId = e!;
-                          },
-                          validators: const []),
+                      FormBuilderTextField(
+                        name: "Room Booking ID",
+                        initialValue: roomBooking.roomBookingId,
+                        decoration: const InputDecoration(labelText: "Booking ID"),
+                        onChanged: (e) {
+                          roomBooking.roomBookingId = e!;
+                        },
+                        validator: FormBuilderValidators.compose(
+                            [FormBuilderValidators.required()]),
+                      ),
                       Row(children: [
                         Expanded(
                             child: FormBuilderDropdown(
