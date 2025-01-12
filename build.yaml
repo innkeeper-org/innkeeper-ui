@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      source_gen:combining_builder:
+        options:
+          build_extensions:
+            '^lib/front_office/models/{{}}.dart': 'lib/front_office/models/generated/{{}}.g.dart'

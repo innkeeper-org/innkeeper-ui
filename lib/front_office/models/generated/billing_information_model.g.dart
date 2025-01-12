@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'billing_information_model.dart';
+part of '../billing_information_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

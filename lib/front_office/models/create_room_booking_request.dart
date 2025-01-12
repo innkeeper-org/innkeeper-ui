@@ -1,7 +1,7 @@
 import 'package:frontend/front_office/models/room_booking.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'create_room_booking_request.g.dart';
+part 'generated/create_room_booking_request.g.dart';
 
 @JsonSerializable()
 class CreateRoomBookingRequest {

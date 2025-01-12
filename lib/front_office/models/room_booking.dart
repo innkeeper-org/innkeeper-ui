@@ -9,7 +9,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../enum/room_booking_status.dart';
 
-part 'room_booking.g.dart';
+part 'generated/room_booking.g.dart';
 
 
 

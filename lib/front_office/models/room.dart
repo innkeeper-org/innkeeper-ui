@@ -8,7 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../enum/room_status.dart';
 
-part 'room.g.dart';
+part 'generated/room.g.dart';
 
 @JsonSerializable()
 class Room {

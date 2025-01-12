@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_reservation_model.dart';
+part of '../create_reservation_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

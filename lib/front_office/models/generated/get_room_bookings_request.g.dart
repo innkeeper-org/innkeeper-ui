@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_room_bookings_request.dart';
+part of '../get_room_bookings_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

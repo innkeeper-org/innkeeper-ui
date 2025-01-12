@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'guest_information_model.g.dart';
+part 'generated/guest_information_model.g.dart';
 
 @JsonSerializable()
 class GuestInformationModel {

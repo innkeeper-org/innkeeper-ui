@@ -7,7 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'billing_information_model.dart';
 import 'guest.dart';
 
-part 'create_reservation_model.g.dart';
+part 'generated/create_reservation_model.g.dart';
 
 @JsonSerializable()
 class CreateReservationModel extends ChangeNotifier {

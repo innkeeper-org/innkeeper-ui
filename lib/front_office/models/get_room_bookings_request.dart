@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'get_room_bookings_request.g.dart';
+part 'generated/get_room_bookings_request.g.dart';
 
 @JsonSerializable()
 class GetRoomBookingsRequest {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'guest_information_model.dart';
+part of '../guest_information_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

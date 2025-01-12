@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'billing_information_model.g.dart';
+part 'generated/billing_information_model.g.dart';
 
 @JsonSerializable()
 class BillingInformationModel {
