@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../models/room.dart';
 import '../../../models/room_booking.dart';
+import '../../../util/custom_input_decoration.dart';
 
 class RoomInformationWidget extends StatelessWidget {
   const RoomInformationWidget({super.key});
@@ -56,16 +57,10 @@ class RoomInformationDetailsItem extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return Card(
         color: theme.cardColor,
-        elevation: 1,
+        elevation: 2,
         child: Container(
             padding: const EdgeInsets.all(15),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              MaterialButton(
-                  color: Colors.red,
-                  onPressed: () {
-                    onDelete(roomBooking.roomBookingId);
-                  },
-                  child: const Text("Remove Booking")),
               FormBuilder(
                   key: GlobalKey<FormBuilderState>(),
                   child: Column(
@@ -73,12 +68,19 @@ class RoomInformationDetailsItem extends StatelessWidget {
                       FormBuilderTextField(
                         name: "Room Booking ID",
                         initialValue: roomBooking.roomBookingId,
-                        decoration: const InputDecoration(labelText: "Booking ID"),
+                        decoration: CustomInputDecoration(
+                                labelText: "Booking ID",
+                                hintText: "Booking ID",
+                                icon: Icons.info_outline_rounded)
+                            .formField,
                         onChanged: (e) {
                           roomBooking.roomBookingId = e!;
                         },
                         validator: FormBuilderValidators.compose(
                             [FormBuilderValidators.required()]),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       Row(children: [
                         Expanded(
@@ -92,8 +94,10 @@ class RoomInformationDetailsItem extends StatelessWidget {
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
                           ]),
-                          decoration:
-                              const InputDecoration(labelText: "Status"),
+                          decoration: CustomInputDecoration(
+                            labelText: "Status",
+                            hintText: "Status",
+                          ).formField,
                           dropdownColor: Colors.white,
                           initialValue: roomBooking.status,
                           onChanged: (e) {
@@ -113,8 +117,11 @@ class RoomInformationDetailsItem extends StatelessWidget {
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(),
                             ]),
-                            decoration:
-                                const InputDecoration(labelText: "Room"),
+                            decoration: CustomInputDecoration(
+                                    labelText: "Room",
+                                    hintText: "Room",
+                                    icon: Icons.room_preferences_outlined)
+                                .formField,
                             dropdownColor: Colors.white,
                             initialValue: roomBooking.room,
                             onChanged: (e) {
@@ -123,6 +130,9 @@ class RoomInformationDetailsItem extends StatelessWidget {
                           ),
                         )
                       ]),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(children: [
                         Expanded(
                           child: FormBuilderDateTimePicker(
@@ -132,8 +142,11 @@ class RoomInformationDetailsItem extends StatelessWidget {
                                         Constants.epochDate
                                     ? DateTime.now()
                                     : roomBooking.bookingCheckIn,
-                            decoration: const InputDecoration(
-                                labelText: "Booking Check In"),
+                            decoration: CustomInputDecoration(
+                                    labelText: "Booking Check In",
+                                    hintText: "Booking Check In",
+                                    icon: Icons.calendar_month_outlined)
+                                .formField,
                             inputType: InputType.date,
                             initialEntryMode: DatePickerEntryMode.calendarOnly,
                             onChanged: (v) {
@@ -152,8 +165,11 @@ class RoomInformationDetailsItem extends StatelessWidget {
                                     Constants.epochDate
                                 ? DateTime.now().add(const Duration(days: 1))
                                 : roomBooking.bookingCheckOut,
-                            decoration: const InputDecoration(
-                                labelText: "Booking Check Out"),
+                            decoration: CustomInputDecoration(
+                                    labelText: "Booking Check Out",
+                                    hintText: "Booking Check Out",
+                                    icon: Icons.calendar_month_outlined)
+                                .formField,
                             inputType: InputType.date,
                             initialEntryMode: DatePickerEntryMode.calendarOnly,
                             onChanged: (v) {
@@ -172,8 +188,10 @@ class RoomInformationDetailsItem extends StatelessWidget {
                               onChanged: (value) {
                                 roomBooking.pax = int.tryParse(value!)!;
                               },
-                              decoration:
-                                  const InputDecoration(labelText: "Pax"),
+                              decoration: CustomInputDecoration(
+                                labelText: "Pax",
+                                hintText: "Pax",
+                              ).formField,
                               inputFormatters: [
                                 FilteringTextInputFormatter
                                     .digitsOnly, // Allow only digits
@@ -184,6 +202,9 @@ class RoomInformationDetailsItem extends StatelessWidget {
                               ])),
                         )
                       ]),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -196,8 +217,11 @@ class RoomInformationDetailsItem extends StatelessWidget {
                                   roomBooking.price.priceWithoutTax =
                                       double.tryParse(value!)!;
                                 },
-                                decoration: const InputDecoration(
-                                    labelText: "Price (Tax Excluded)"),
+                                decoration: CustomInputDecoration(
+                                        labelText: "Price (Tax Excluded)",
+                                        hintText: "Price (Tax Excluded)",
+                                        icon: Icons.currency_rupee_rounded)
+                                    .formField,
                                 inputFormatters: [
                                   FilteringTextInputFormatter
                                       .digitsOnly, // Allow only digits
@@ -220,8 +244,11 @@ class RoomInformationDetailsItem extends StatelessWidget {
                                   roomBooking.price.discountRate =
                                       double.tryParse(value!)!;
                                 },
-                                decoration: const InputDecoration(
-                                    labelText: "Price Discount"),
+                                decoration: CustomInputDecoration(
+                                        labelText: "Price Discount",
+                                        hintText: "Price Discount",
+                                        icon: Icons.currency_rupee_rounded)
+                                    .formField,
                                 inputFormatters: [
                                   FilteringTextInputFormatter
                                       .digitsOnly, // Allow only digits
@@ -244,8 +271,11 @@ class RoomInformationDetailsItem extends StatelessWidget {
                                   roomBooking.price.taxRate =
                                       double.tryParse(value!)!;
                                 },
-                                decoration: const InputDecoration(
-                                    labelText: "Tax Rate"),
+                                decoration: CustomInputDecoration(
+                                        labelText: "Tax Rate",
+                                        hintText: "Tax Rate",
+                                        icon: Icons.percent_outlined)
+                                    .formField,
                                 inputFormatters: [
                                   FilteringTextInputFormatter
                                       .digitsOnly, // Allow only digits
@@ -256,7 +286,29 @@ class RoomInformationDetailsItem extends StatelessWidget {
                                 ])),
                           )
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MaterialButton(
+                          onPressed: () {
+                            onDelete(roomBooking.roomBookingId);
+                          },
+                          color:
+                              Colors.pink.shade50, // Pinkish background color
+                          textColor: Colors.white, // Text color
+                          padding: const EdgeInsets.all(10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8.0), // Rounded corners
+                          ),
+                          elevation: 0,
+                          child: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                              size: 30,
+                            ),
+                          ),
                     ],
                   ))
             ])));
