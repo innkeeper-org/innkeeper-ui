@@ -8,6 +8,7 @@ class BillingInformationModel {
 
   BillingInformationModel({required this.invoiceNumber});
 
-  factory BillingInformationModel.fromJson(Map<String,dynamic> json) => _$BillingInformationModelFromJson(json);
-  Map<String,dynamic> toJson() => _$BillingInformationModelToJson(this);
+  factory BillingInformationModel.fromJson(Map<String, dynamic> json) =>
+      _$BillingInformationModelFromJson(json);
+  Map<String, dynamic> toJson() => _$BillingInformationModelToJson(this);
 }

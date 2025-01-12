@@ -6,7 +6,5 @@ class GuestRegistrationRequest {
   String? phone;
   String? company;
   String? email;
-  GuestRegistrationRequest({
-    required this.name
-  });
+  GuestRegistrationRequest({required this.name});
 }

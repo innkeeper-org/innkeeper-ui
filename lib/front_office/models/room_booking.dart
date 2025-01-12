@@ -1,4 +1,3 @@
-
 import 'dart:math';
 import 'dart:ui';
 
@@ -8,14 +7,11 @@ import 'package:frontend/front_office/models/price.dart';
 import 'package:frontend/front_office/models/room.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../enum/room_booking_status.dart';
+
 part 'room_booking.g.dart';
 
-enum RoomBookingStatus {
-  BOOKED,
-  CHECKED_IN,
-  CHECKED_OUT,
-  CANCELLED;
-}
+
 
 @JsonSerializable()
 class RoomBooking {
@@ -29,15 +25,14 @@ class RoomBooking {
   DateTime bookingCheckOut;
   Price price;
   late int pax;
-  RoomBooking({
-    required this.roomBookingId,
-    required this.room,
-    required this.bookingCheckIn,
-    required this.bookingCheckOut,
-    required this.price,
-    status,
-    pax
-}) {
+  RoomBooking(
+      {required this.roomBookingId,
+      required this.room,
+      required this.bookingCheckIn,
+      required this.bookingCheckOut,
+      required this.price,
+      status,
+      pax}) {
     this.status = status ?? RoomBookingStatus.BOOKED;
     this.pax = 1;
   }
@@ -50,22 +45,36 @@ class RoomBooking {
     DateTime checkIn = DateTime.now().add(Duration(days: Random().nextInt(15)));
     DateTime checkOut = checkIn.add(Duration(days: Random().nextInt(2)));
     double priceWithoutTax = (1500.00 + Random().nextInt(1000));
-    Price price = Price(priceWithoutTax: priceWithoutTax, discountRate: 10, taxRate: 12);
-    RoomBooking roomBooking = new RoomBooking(roomBookingId: Random().nextInt(1000).toString(), room: room,
+    Price price =
+        Price(priceWithoutTax: priceWithoutTax, discountRate: 10, taxRate: 12);
+    RoomBooking roomBooking = new RoomBooking(
+        roomBookingId: Random().nextInt(1000).toString(),
+        room: room,
         bookingCheckIn: checkIn,
         bookingCheckOut: checkOut,
         price: price);
-    List<String> guestNames = ["Mr Bob", "Mr Raju", "Mrs Rita", "Mrs Neha", "Taneja"];
-    roomBooking.guest = new Guest(name: guestNames[Random().nextInt(guestNames.length)], phone: "1234567890",
-    email: "abc@abc.com", company: "ABC Pvt Ltd.");
-    roomBooking.status = RoomBookingStatus.values[Random().nextInt(RoomBookingStatus.values.length)];
-    if(roomBooking.status == RoomBookingStatus.CHECKED_OUT) roomBooking.status = RoomBookingStatus.BOOKED;
+    List<String> guestNames = [
+      "Mr Bob",
+      "Mr Raju",
+      "Mrs Rita",
+      "Mrs Neha",
+      "Taneja"
+    ];
+    roomBooking.guest = new Guest(
+        name: guestNames[Random().nextInt(guestNames.length)],
+        phone: "1234567890",
+        email: "abc@abc.com",
+        company: "ABC Pvt Ltd.");
+    roomBooking.status = RoomBookingStatus
+        .values[Random().nextInt(RoomBookingStatus.values.length)];
+    if (roomBooking.status == RoomBookingStatus.CHECKED_OUT)
+      roomBooking.status = RoomBookingStatus.BOOKED;
     roomBooking._checkIn(checkIn);
     return roomBooking;
   }
 
   Color getRoomStatusColor() {
-    switch(status) {
+    switch (status) {
       case RoomBookingStatus.BOOKED:
         return Colors.blue;
       case RoomBookingStatus.CHECKED_IN:
@@ -77,6 +86,7 @@ class RoomBooking {
     }
   }
 
-  factory RoomBooking.fromJson(Map<String, dynamic> json) => _$RoomBookingFromJson(json);
+  factory RoomBooking.fromJson(Map<String, dynamic> json) =>
+      _$RoomBookingFromJson(json);
   Map<String, dynamic> toJson() => _$RoomBookingToJson(this);
 }

@@ -9,12 +9,11 @@ class Price {
   double discountRate;
   double taxRate;
 
-  Price({
-    this.hsnCode,
-    required this.priceWithoutTax,
-    required this.discountRate,
-    required this.taxRate
-});
+  Price(
+      {this.hsnCode,
+      required this.priceWithoutTax,
+      required this.discountRate,
+      required this.taxRate});
 
   double getAmount() {
     double netPBT = priceWithoutTax * (1 - discountRate / 100);

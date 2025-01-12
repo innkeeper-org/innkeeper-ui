@@ -13,15 +13,18 @@ class PropertyProvider extends ChangeNotifier {
   Property getSelectedProperty() {
     return _selectedProperty;
   }
+
   // set selectedProperty(Property newProperty) {
   //   _selectedProperty = newProperty;
   // }
   List<Property> getPropertyList() {
     return _propertyList;
   }
+
   void addProperty(Property property) {
     _propertyList.add(property);
   }
+
   void removeProperty(Property property) {
     _propertyList.remove(property);
   }

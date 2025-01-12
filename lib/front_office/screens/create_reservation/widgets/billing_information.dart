@@ -6,7 +6,6 @@ import 'package:frontend/front_office/screens/create_reservation/widgets/custom_
 import 'package:provider/provider.dart';
 
 class BillingInformationWidget extends StatelessWidget {
-
   final _formKey = GlobalKey<FormBuilderState>();
 
   BillingInformationWidget({super.key});
@@ -35,7 +34,7 @@ class BillingInformationDetailsCard extends StatelessWidget {
           width: 800,
           padding: const EdgeInsets.all(15),
           child: Column(
-            // mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 Text("Billing Information", style: theme.textTheme.bodyLarge),
                 const Divider(thickness: 2),

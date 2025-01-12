@@ -8,7 +8,7 @@ part of 'room.dart';
 
 Room _$RoomFromJson(Map<String, dynamic> json) => Room(
       name: json['name'] as String,
-      status: $enumDecode(_$RoomStatusEnumMap, json['status']),
+      status: json['status'],
       category: json['category'] as String,
       roomBooking: json['roomBooking'] == null
           ? null

@@ -14,56 +14,54 @@ class RoomBookingDialog extends StatelessWidget {
   final RoomBooking roomBooking;
   const RoomBookingDialog({super.key, required this.roomBooking});
 
-
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    return
-      Card(
-          elevation: 1,
-          color: themeData.secondaryHeaderColor,
-          shape: const ContinuousRectangleBorder(),
-          child: DefaultTabController(length: 3,
-              initialIndex: 0,
-              child: Scaffold(
-                appBar: AppBar(
-                  title: const Text("Room Booking Details"),
-                  bottom: const TabBar(
-                      tabs: <Widget>[
-                        Tab(text:"Overview", icon: Icon(Icons.info)),
-                        Tab(text: "Other Room Allotments", icon: Icon(Icons.local_hotel)),
-                        Tab(text: "Billing Account", icon: Icon(Icons.list))
-                      ]),
-                ),
-                body: TabBarView(
-                    children: <Widget>[
-                      RoomBookingOverview(roomBooking: roomBooking),
-                      RoomBookingListView(roomBookingList: RoomBookingRepository.getRandomBookings()),
-                      RoomBookingLedger(roomBooking: roomBooking),
-                    ]),
-                floatingActionButton: ExpandableFab(distance: 112,
-                  initialOpen: false,
-                  children: [
-                    ActionButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.money),
-                      description: "Add charge",
-                    ),
-                    ActionButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.exit_to_app),
-                      description: "Checkout",
-                    ),
-                    ActionButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.print),
-                      description: "Print Statement",
-                    ),
-                  ],
-                ),
-              ))
-      );
+    return Card(
+        elevation: 1,
+        color: themeData.secondaryHeaderColor,
+        shape: const ContinuousRectangleBorder(),
+        child: DefaultTabController(
+            length: 3,
+            initialIndex: 0,
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text("Room Booking Details"),
+                bottom: const TabBar(tabs: <Widget>[
+                  Tab(text: "Overview", icon: Icon(Icons.info)),
+                  Tab(
+                      text: "Other Room Allotments",
+                      icon: Icon(Icons.local_hotel)),
+                  Tab(text: "Billing Account", icon: Icon(Icons.list))
+                ]),
+              ),
+              body: TabBarView(children: <Widget>[
+                RoomBookingOverview(roomBooking: roomBooking),
+                RoomBookingListView(
+                    roomBookingList: RoomBookingRepository.getRandomBookings()),
+                RoomBookingLedger(roomBooking: roomBooking),
+              ]),
+              floatingActionButton: ExpandableFab(
+                distance: 112,
+                initialOpen: false,
+                children: [
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.money),
+                    description: "Add charge",
+                  ),
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.exit_to_app),
+                    description: "Checkout",
+                  ),
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.print),
+                    description: "Print Statement",
+                  ),
+                ],
+              ),
+            )));
   }
 }
-
-

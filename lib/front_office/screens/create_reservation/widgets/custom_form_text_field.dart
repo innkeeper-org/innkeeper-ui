@@ -10,7 +10,11 @@ class CustomFormTextField extends StatelessWidget {
   final void Function(String?) onChanged;
 
   const CustomFormTextField(
-      {super.key, required this.name, required this.value,required this.onChanged,required this.validators});
+      {super.key,
+      required this.name,
+      required this.value,
+      required this.onChanged,
+      required this.validators});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +24,7 @@ class CustomFormTextField extends StatelessWidget {
       onChanged: (value) {
         onChanged(value);
       },
-      decoration: InputDecoration(
-          labelText: name),
+      decoration: InputDecoration(labelText: name),
       validator: FormBuilderValidators.compose(validators),
     );
   }

@@ -9,6 +9,8 @@ import 'package:frontend/front_office/screens/home/widgets/room_list_filter.dart
 import 'package:frontend/front_office/screens/home/widgets/room_status_card.dart';
 import 'package:logging/logging.dart';
 
+import '../../enum/room_status.dart';
+
 class CurrentStatus extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _CurrentStatusState();
@@ -51,8 +53,7 @@ class _CurrentStatusState extends State<CurrentStatus> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text("Room Inventory",
-                style: theme.textTheme.headlineSmall),
+            Text("Room Inventory", style: theme.textTheme.headlineSmall),
             Divider(),
             // RoomListFilter(onToggleRoomStatusChange: onRoomStatusChangeFilter,
             //   onSearchTextChange: onSearchTextChangeFilter,
@@ -61,16 +62,13 @@ class _CurrentStatusState extends State<CurrentStatus> {
             Divider(),
             Wrap(
                 children: roomList.where((room) {
-                  bool condition = roomStatusFilter.contains(room.status) &&
-                      room.hasSearchText(searchFilter);
-                  return condition;
-                }).map((room) {
-                  return RoomStatusCard(room: room);
-                }).toList()
-            )
+              bool condition = roomStatusFilter.contains(room.status) &&
+                  room.hasSearchText(searchFilter);
+              return condition;
+            }).map((room) {
+              return RoomStatusCard(room: room);
+            }).toList())
           ],
-        )
-    );
+        ));
   }
 }
-

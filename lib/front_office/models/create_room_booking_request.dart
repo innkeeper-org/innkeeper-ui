@@ -8,11 +8,10 @@ class CreateRoomBookingRequest {
   String billingAccountId;
   List<RoomBooking> roomBookingList;
 
-  CreateRoomBookingRequest({
-    required this.billingAccountId,
-    required this.roomBookingList
-  });
+  CreateRoomBookingRequest(
+      {required this.billingAccountId, required this.roomBookingList});
 
-  factory CreateRoomBookingRequest.fromJson(Map<String, dynamic> json) => _$CreateRoomBookingRequestFromJson(json);
+  factory CreateRoomBookingRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateRoomBookingRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateRoomBookingRequestToJson(this);
 }

@@ -6,27 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:frontend/front_office/models/room_booking.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../enum/room_status.dart';
+
 part 'room.g.dart';
-
-enum RoomStatus {
-  READY,
-  BOOKED,
-  BLOCKED,
-  CLEANING,
-  CHECKED_IN;
-}
-
-
 
 @JsonSerializable()
 class Room {
   final String name;
-  final RoomStatus status;
+  late RoomStatus status;
   final String category;
   RoomBooking? roomBooking;
   String? comment;
 
-  Room({required this.name, required this.status, required this.category, this.roomBooking, this.comment});
+  Room(
+      {required this.name,
+      status,
+      required this.category,
+      this.roomBooking,
+      this.comment}) {
+    this.status = status == "" ? RoomStatus.READY : status;
+  }
 
   @override
   String toString() {
@@ -46,24 +45,30 @@ class Room {
     RoomStatus status = getRandomStatus();
     RoomBooking? roomBooking;
     Room room = Room(name: name, status: status, category: getRandomCategory());
-    if(status == RoomStatus.BOOKED || status == RoomStatus.CHECKED_IN) {
+    if (status == RoomStatus.BOOKED || status == RoomStatus.CHECKED_IN) {
       roomBooking = RoomBooking.generateRandomRoomBooking(room);
       room.roomBooking = roomBooking;
     }
     return room;
+  }
+  static List<Room> getRoomList(){
+    List<Room> list = [];
+    list.add(Room(name: "69",status:RoomStatus.READY, category: "Executive"));
+    list.add(Room(name: "420",status: RoomStatus.READY,category: "Executive"));
+    return list;
   }
 
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
   Map<String, dynamic> toJson() => _$RoomToJson(this);
 
   bool hasSearchText(String? text) {
-    if(text == null || text.isEmpty) return true;
+    if (text == null || text.isEmpty) return true;
     return name.contains(text) ||
         (roomBooking?.guest?.hasSearchText(text) == true);
   }
 
   static Color getRoomStatusColor(RoomStatus status) {
-    switch(status) {
+    switch (status) {
       case RoomStatus.BOOKED:
         return Colors.lightBlueAccent.shade100;
       case RoomStatus.BLOCKED:
@@ -77,5 +82,4 @@ class Room {
         return Colors.white70;
     }
   }
-
 }

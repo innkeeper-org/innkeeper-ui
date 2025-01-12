@@ -21,48 +21,52 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
   void initState() {
     // TODO: implement initState
     _calendarController.selectedDate = DateTime.now();
-    _calendarController.displayDate = DateTime.now().add(const Duration(days: 1));
+    _calendarController.displayDate =
+        DateTime.now().add(const Duration(days: 1));
     _calendarController.view = CalendarView.month;
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return SfCalendar(
-            controller: _calendarController,
-            allowedViews:  const [CalendarView.day, CalendarView.week, CalendarView.month, CalendarView.timelineMonth],
-            firstDayOfWeek: 1,
-            dataSource: RoomBookingDataSource(RoomBookingRepository.getRandomBookings()),
-            monthViewSettings: const MonthViewSettings(
-                appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-            appointmentDisplayCount: 3,
-            // showAgenda: true,
-            agendaViewHeight: 400
-            ),
-            onTap: calendarTapped,
-          );
+      controller: _calendarController,
+      allowedViews: const [
+        CalendarView.day,
+        CalendarView.week,
+        CalendarView.month,
+        CalendarView.timelineMonth
+      ],
+      firstDayOfWeek: 1,
+      dataSource:
+          RoomBookingDataSource(RoomBookingRepository.getRandomBookings()),
+      monthViewSettings: const MonthViewSettings(
+          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+          appointmentDisplayCount: 3,
+          // showAgenda: true,
+          agendaViewHeight: 400),
+      onTap: calendarTapped,
+    );
   }
 
   void calendarTapped(CalendarTapDetails tapDetails) {
     // if(tapDetails.targetElement == CalendarElement.appointment ||
     // tapDetails.targetElement == CalendarElement.calendarCell) {
-      logger.info("Event Tapped : " + tapDetails.appointments.toString());
-      // tapDetails.appointments
-      switch(tapDetails.targetElement) {
-        case CalendarElement.appointment:
-          RoomBooking roomBooking = tapDetails.appointments![0];
-          roomBookingNavigation(context, roomBooking);
-          break;
-        case CalendarElement.calendarCell:
-          _calendarController.view = CalendarView.day;
-        default:
-          logger.info("Navigation not implemented:" + tapDetails.targetElement.toString());
-      }
+    logger.info("Event Tapped : " + tapDetails.appointments.toString());
+    // tapDetails.appointments
+    switch (tapDetails.targetElement) {
+      case CalendarElement.appointment:
+        RoomBooking roomBooking = tapDetails.appointments![0];
+        roomBookingNavigation(context, roomBooking);
+        break;
+      case CalendarElement.calendarCell:
+        _calendarController.view = CalendarView.day;
+      default:
+        logger.info("Navigation not implemented:" +
+            tapDetails.targetElement.toString());
+    }
   }
-
 }
 
 class RoomBookingDataSource extends CalendarDataSource {

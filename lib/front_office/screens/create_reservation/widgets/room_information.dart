@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:frontend/front_office/models/room_information_model.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:frontend/front_office/enum/room_booking_status.dart';
 import 'package:frontend/front_office/models/create_reservation_model.dart';
 import 'package:frontend/front_office/screens/create_reservation/widgets/custom_form_text_field.dart';
 import 'package:frontend/util/constants.dart';
 import 'package:provider/provider.dart';
+
+import '../../../models/room.dart';
+import '../../../models/room_booking.dart';
 
 class RoomInformationWidget extends StatelessWidget {
   const RoomInformationWidget({super.key});
@@ -12,26 +17,26 @@ class RoomInformationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<CreateReservationModel>(context);
-    final rooms = model.rooms;
+    final roomBookings = model.roomBookings;
     return Container(
         padding: const EdgeInsets.all(15),
         child: Column(children: [
           MaterialButton(
               color: Colors.blueAccent,
               onPressed: () {
-                model.addRoom(RoomInformationModel.fromJson(
-                    Constants.emptyRoomInformationModel));
+                model.addRoom(
+                    RoomBooking.fromJson(Constants.emptyRoomBookingModel));
               },
-              child: const Text("Add Room")),
+              child: const Text("Add Booking")),
           const Divider(
             thickness: 2,
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: rooms.length,
+              itemCount: roomBookings.length,
               itemBuilder: (context, index) {
                 return RoomInformationDetailsItem(
-                  room: rooms[index],
+                  roomBooking: roomBookings[index],
                   onDelete: model.removeRoom,
                 );
               },
@@ -42,10 +47,10 @@ class RoomInformationWidget extends StatelessWidget {
 }
 
 class RoomInformationDetailsItem extends StatelessWidget {
-  final RoomInformationModel room;
+  final RoomBooking roomBooking;
   final Function(String) onDelete;
   const RoomInformationDetailsItem(
-      {required this.room, required this.onDelete, super.key});
+      {required this.roomBooking, required this.onDelete, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,55 +64,197 @@ class RoomInformationDetailsItem extends StatelessWidget {
               MaterialButton(
                   color: Colors.red,
                   onPressed: () {
-                    onDelete(room.roomNumber);
+                    onDelete(roomBooking.roomBookingId);
                   },
-                  child: const Text("Delete Room")),
+                  child: const Text("Remove Booking")),
               FormBuilder(
                   key: GlobalKey<FormBuilderState>(),
                   child: Column(
                     children: [
                       CustomFormTextField(
-                          name: "Room Number",
-                          value: room.roomNumber,
+                          name: "Room Booking ID",
+                          value: roomBooking.roomBookingId,
                           onChanged: (e) {
-                            room.roomNumber = e!;
+                            roomBooking.roomBookingId = e!;
                           },
                           validators: const []),
-                      CustomFormTextField(
-                          name: "Room Type",
-                          value: room.roomType,
+                      Row(children: [
+                        Expanded(
+                            child: FormBuilderDropdown(
+                          name: "Status",
+                          items: [
+                            ...RoomBookingStatus.values.map((e) =>
+                                DropdownMenuItem(
+                                    value: e, child: Text(e.toString())))
+                          ],
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(),
+                          ]),
+                          decoration:
+                              const InputDecoration(labelText: "Status"),
+                          dropdownColor: Colors.white,
+                          initialValue: roomBooking.status,
                           onChanged: (e) {
-                            room.roomType = e!;
+                            roomBooking.status = e!;
                           },
-                          validators: const []),
-                      CustomFormTextField(
-                          name: "Adults",
-                          value: room.adults,
-                          onChanged: (e) {
-                            room.adults = e!;
-                          },
-                          validators: const []),
-                      CustomFormTextField(
-                          name: "Children",
-                          value: room.children,
-                          onChanged: (e) {
-                            room.children = e!;
-                          },
-                          validators: const []),
-                      CustomFormTextField(
-                          name: "Nights",
-                          value: room.nights,
-                          onChanged: (e) {
-                            room.nights = e!;
-                          },
-                          validators: const []),
-                      CustomFormTextField(
-                          name: "Room Rate",
-                          value: room.rate,
-                          onChanged: (e) {
-                            room.rate = e!;
-                          },
-                          validators: const []),
+                        )),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: FormBuilderDropdown(
+                            name: "Room",
+                            items: [
+                              ...Room.getRoomList().map((e) => DropdownMenuItem(
+                                  value: e, child: Text(e.name)))
+                            ],
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                            decoration:
+                                const InputDecoration(labelText: "Room"),
+                            dropdownColor: Colors.white,
+                            initialValue: roomBooking.room,
+                            onChanged: (e) {
+                              roomBooking.room = e!;
+                            },
+                          ),
+                        )
+                      ]),
+                      Row(children: [
+                        Expanded(
+                          child: FormBuilderDateTimePicker(
+                            name: "Booking Check In",
+                            initialValue:
+                                roomBooking.bookingCheckIn.toString() ==
+                                        Constants.epochDate
+                                    ? DateTime.now()
+                                    : roomBooking.bookingCheckIn,
+                            decoration: const InputDecoration(
+                                labelText: "Booking Check In"),
+                            inputType: InputType.date,
+                            initialEntryMode: DatePickerEntryMode.calendarOnly,
+                            onChanged: (v) {
+                              roomBooking.bookingCheckIn = v!;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: FormBuilderDateTimePicker(
+                            name: "Booking Check Out",
+                            initialValue: roomBooking.bookingCheckOut
+                                        .toString() ==
+                                    Constants.epochDate
+                                ? DateTime.now().add(const Duration(days: 1))
+                                : roomBooking.bookingCheckOut,
+                            decoration: const InputDecoration(
+                                labelText: "Booking Check Out"),
+                            inputType: InputType.date,
+                            initialEntryMode: DatePickerEntryMode.calendarOnly,
+                            onChanged: (v) {
+                              roomBooking.bookingCheckOut = v!;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: FormBuilderTextField(
+                              name: "Pax",
+                              initialValue: roomBooking.pax.toString(),
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                roomBooking.pax = int.tryParse(value!)!;
+                              },
+                              decoration:
+                                  const InputDecoration(labelText: "Pax"),
+                              inputFormatters: [
+                                FilteringTextInputFormatter
+                                    .digitsOnly, // Allow only digits
+                              ],
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(),
+                                FormBuilderValidators.numeric(),
+                              ])),
+                        )
+                      ]),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FormBuilderTextField(
+                                name: "Price (Tax Excluded)",
+                                initialValue: roomBooking.price.priceWithoutTax
+                                    .toString(),
+                                keyboardType: TextInputType.number,
+                                onChanged: (value) {
+                                  roomBooking.price.priceWithoutTax =
+                                      double.tryParse(value!)!;
+                                },
+                                decoration: const InputDecoration(
+                                    labelText: "Price (Tax Excluded)"),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter
+                                      .digitsOnly, // Allow only digits
+                                ],
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(),
+                                  FormBuilderValidators.numeric(),
+                                ])),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: FormBuilderTextField(
+                                name: "Price Discount",
+                                initialValue:
+                                    roomBooking.price.discountRate.toString(),
+                                keyboardType: TextInputType.number,
+                                onChanged: (value) {
+                                  roomBooking.price.discountRate =
+                                      double.tryParse(value!)!;
+                                },
+                                decoration: const InputDecoration(
+                                    labelText: "Price Discount"),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter
+                                      .digitsOnly, // Allow only digits
+                                ],
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(),
+                                  FormBuilderValidators.numeric(),
+                                ])),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: FormBuilderTextField(
+                                name: "Tax Rate",
+                                initialValue:
+                                    roomBooking.price.taxRate.toString(),
+                                keyboardType: TextInputType.number,
+                                onChanged: (value) {
+                                  roomBooking.price.taxRate =
+                                      double.tryParse(value!)!;
+                                },
+                                decoration: const InputDecoration(
+                                    labelText: "Tax Rate"),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter
+                                      .digitsOnly, // Allow only digits
+                                ],
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(),
+                                  FormBuilderValidators.numeric(),
+                                ])),
+                          )
+                        ],
+                      )
                     ],
                   ))
             ])));

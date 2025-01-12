@@ -14,25 +14,24 @@ void main() {
   runApp(
     MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => PropertyProvider(),),
+          ChangeNotifierProvider(
+            create: (context) => PropertyProvider(),
+          ),
         ],
-        child:
-        MaterialApp(
+        child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: "Innkeeper",
             theme: ThemeData(
               useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent, brightness: Brightness.light),
+              colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.blueAccent, brightness: Brightness.light),
               canvasColor: Colors.transparent,
               textTheme: const TextTheme(
                   headlineSmall: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold, )
-              ),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              )),
             ),
-            home: const Home()
-        )),
+            home: const Home())),
   );
 }
-
-

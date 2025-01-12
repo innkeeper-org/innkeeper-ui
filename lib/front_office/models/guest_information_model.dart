@@ -12,6 +12,7 @@ class GuestInformationModel {
   GuestInformationModel(
       {required this.name, required this.phone, required this.email});
 
-  factory GuestInformationModel.fromJson(Map<String,dynamic> json) => _$GuestInformationModelFromJson(json);
-  Map<String,dynamic> toJson() => _$GuestInformationModelToJson(this);
+  factory GuestInformationModel.fromJson(Map<String, dynamic> json) =>
+      _$GuestInformationModelFromJson(json);
+  Map<String, dynamic> toJson() => _$GuestInformationModelToJson(this);
 }

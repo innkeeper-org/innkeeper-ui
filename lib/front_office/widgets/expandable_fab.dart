@@ -102,8 +102,8 @@ class _ExpandableFabState extends State<ExpandableFab>
     final count = widget.children.length;
     final step = 90.0 / (count - 1);
     for (var i = 0, angleInDegrees = 0.0;
-    i < count;
-    i++, angleInDegrees += step) {
+        i < count;
+        i++, angleInDegrees += step) {
       children.add(
         _ExpandingActionButton(
           directionInDegrees: angleInDegrees,
@@ -184,12 +184,8 @@ class _ExpandingActionButton extends StatelessWidget {
 
 @immutable
 class ActionButton extends StatelessWidget {
-  const ActionButton({
-    super.key,
-    this.onPressed,
-    required this.icon,
-    this.description
-  });
+  const ActionButton(
+      {super.key, this.onPressed, required this.icon, this.description});
 
   final VoidCallback? onPressed;
   final Widget icon;
@@ -199,19 +195,17 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Material(
-      shape: const CircleBorder(),
-      clipBehavior: Clip.antiAlias,
-      color: theme.colorScheme.secondary,
-      elevation: 4,
-      child: Tooltip(
-        message: description ?? "",
-        child: IconButton(
-          onPressed: onPressed,
-          icon: icon,
-          color: theme.colorScheme.onSecondary,
-        ),
-      )
-    );
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        color: theme.colorScheme.secondary,
+        elevation: 4,
+        child: Tooltip(
+          message: description ?? "",
+          child: IconButton(
+            onPressed: onPressed,
+            icon: icon,
+            color: theme.colorScheme.onSecondary,
+          ),
+        ));
   }
 }
-
