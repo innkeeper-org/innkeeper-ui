@@ -9,8 +9,7 @@ part of 'create_reservation_model.dart';
 CreateReservationModel _$CreateReservationModelFromJson(
         Map<String, dynamic> json) =>
     CreateReservationModel(
-      guest:
-          GuestInformationModel.fromJson(json['guest'] as Map<String, dynamic>),
+      guest: Guest.fromJson(json['guest'] as Map<String, dynamic>),
       rooms: (json['rooms'] as List<dynamic>)
           .map((e) => RoomInformationModel.fromJson(e as Map<String, dynamic>))
           .toList(),

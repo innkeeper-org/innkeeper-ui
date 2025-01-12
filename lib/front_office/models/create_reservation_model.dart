@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'billing_information_model.dart';
-import 'guest_information_model.dart';
+import 'guest.dart';
 import 'room_information_model.dart';
 
 part 'create_reservation_model.g.dart';
 
 @JsonSerializable()
 class CreateReservationModel extends ChangeNotifier{
-  GuestInformationModel guest;
+  Guest guest;
   List<RoomInformationModel> rooms;
   BillingInformationModel billing;
 
@@ -21,7 +21,7 @@ class CreateReservationModel extends ChangeNotifier{
   factory CreateReservationModel.fromJson(Map<String,dynamic> json) => _$CreateReservationModelFromJson(json);
   Map<String, dynamic> toJson() => _$CreateReservationModelToJson(this);
 
-  GuestInformationModel get getGuestInformation => guest;
+  Guest get getGuestInformation => guest;
   UnmodifiableListView<RoomInformationModel> get getRoomList => UnmodifiableListView(rooms);
   BillingInformationModel get getBillingInformation => billing;
 

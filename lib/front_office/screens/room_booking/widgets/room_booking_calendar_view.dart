@@ -33,8 +33,8 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
     ThemeData theme = Theme.of(context);
     return SfCalendar(
             controller: _calendarController,
-            allowedViews:  CalendarView.values,
-            firstDayOfWeek: DateTime.now().day,
+            allowedViews:  const [CalendarView.day, CalendarView.week, CalendarView.month, CalendarView.timelineMonth],
+            firstDayOfWeek: 1,
             dataSource: RoomBookingDataSource(RoomBookingRepository.getRandomBookings()),
             monthViewSettings: const MonthViewSettings(
                 appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,

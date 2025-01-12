@@ -54,7 +54,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                     Expanded(
                       child: CustomFormTextField(
                           name: "Phone",
-                          value: guestInfo.phone,
+                          value: guestInfo.phone.toString(),
                           onChanged: (value) {
                             guestInfo.phone = value!;
                           },
@@ -69,7 +69,7 @@ class GuestBasicDetailsCard extends StatelessWidget {
                     Expanded(
                       child: CustomFormTextField(
                           name: "Email",
-                          value: guestInfo.email,
+                          value: guestInfo.email.toString(),
                           onChanged: (value) {
                             guestInfo.email = value!;
                           },
@@ -80,12 +80,24 @@ class GuestBasicDetailsCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                FormBuilderDateTimePicker(
-                  name: "DOB",
-                  decoration: const InputDecoration(labelText: "DOB"),
-                  inputType: InputType.date,
-                  initialEntryMode: DatePickerEntryMode.calendarOnly,
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomFormTextField(
+                            name: "Address",
+                            value: guestInfo.address.toString(),
+                            onChanged: (value) {
+                              guestInfo.address = value!;
+                            },
+                            validators: [FormBuilderValidators.required()])),
+                  ],
                 ),
+                // FormBuilderDateTimePicker(
+                //   name: "DOB",
+                //   decoration: const InputDecoration(labelText: "DOB"),
+                //   inputType: InputType.date,
+                //   initialEntryMode: DatePickerEntryMode.calendarOnly,
+                // ),
                 const SizedBox(
                   height: 20,
                 ),
