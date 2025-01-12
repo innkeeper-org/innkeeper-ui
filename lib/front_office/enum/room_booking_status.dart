@@ -5,12 +5,11 @@ enum RoomBookingStatus {
   CANCELLED;
 
   @override
-  String toString(){
+  String toString() {
     return super.toString().split('.').last;
   }
 
-  static bool isValid(RoomBookingStatus status){
-    return RoomBookingStatus.values.any((e)=>e.toString()==status);
+  static bool isValid(RoomBookingStatus status) {
+    return RoomBookingStatus.values.any((e) => e.toString() == status);
   }
 }
-

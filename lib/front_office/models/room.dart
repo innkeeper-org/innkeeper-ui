@@ -51,10 +51,12 @@ class Room {
     }
     return room;
   }
-  static List<Room> getRoomList(){
+
+  static List<Room> getRoomList() {
     List<Room> list = [];
-    list.add(Room(name: "69",status:RoomStatus.READY, category: "Executive"));
-    list.add(Room(name: "420",status: RoomStatus.READY,category: "Executive"));
+    list.add(Room(name: "69", status: RoomStatus.READY, category: "Executive"));
+    list.add(
+        Room(name: "420", status: RoomStatus.READY, category: "Executive"));
     return list;
   }
 

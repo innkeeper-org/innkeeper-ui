@@ -6,7 +6,7 @@ enum RoomStatus {
   CHECKED_IN;
 
   @override
-  String toString(){
+  String toString() {
     return super.toString().split('.').last;
   }
 }
